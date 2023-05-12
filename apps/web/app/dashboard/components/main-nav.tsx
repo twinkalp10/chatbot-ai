@@ -6,19 +6,18 @@ import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 
-const examples = [
+const examples: { name: string; href: string; label?: string }[] = [
   {
     name: "Overview",
     href: "/dashboard/overview",
   },
   {
-    name: "Content-source",
-    href: "/dashboard/content-source",
+    name: "Content",
+    href: "/dashboard/content",
   },
   {
     name: "Chatbot",
     href: "/dashboard/chatbot",
-    label: "New",
   },
   {
     name: "Settings",
@@ -28,12 +27,12 @@ const examples = [
 
 interface ExamplesNavProps extends React.HTMLAttributes<HTMLDivElement> {}
 
-function ExamplesNav({ className, ...props }: ExamplesNavProps) {
+function MainNav({ className, ...props }: ExamplesNavProps) {
   const pathname = usePathname()
 
   return (
     <ScrollArea>
-      <div className={cn("mb-4 flex items-center", className)} {...props}>
+      <div className={cn("flex items-center", className)} {...props}>
         {examples.map((example) => (
           <Link
             href={example.href}
@@ -41,8 +40,8 @@ function ExamplesNav({ className, ...props }: ExamplesNavProps) {
             className={cn(
               "flex items-center px-4",
               pathname === example.href
-                ? "font-bold text-primary"
-                : "font-medium text-muted-foreground"
+                ? "text-primary font-bold"
+                : "text-muted-foreground font-medium"
             )}
           >
             {example.name}{" "}
@@ -59,4 +58,4 @@ function ExamplesNav({ className, ...props }: ExamplesNavProps) {
   )
 }
 
-export default ExamplesNav
+export { MainNav }
