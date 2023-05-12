@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import Link from "next/link"
 import { Loader2 } from "lucide-react"
 
 import { cn } from "@/lib/utils"
@@ -50,13 +51,23 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
               autoCorrect="off"
               disabled={isLoading}
             />
+            <p className=" text-right text-xs text-muted-foreground">
+              <Link
+                href="/auth/forgot-password"
+                className="hover:underline underline-offset-4 text-primary font-medium"
+              >
+                Forgot password?
+              </Link>
+            </p>
           </div>
-          <Button disabled={isLoading} className="mt-7">
+
+          <Button disabled={isLoading} className="mt-2">
             {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             Log In with Email
           </Button>
         </div>
       </form>
+
       <div className="relative">
         <div className="absolute inset-0 flex items-center">
           <span className="w-full border-t" />
