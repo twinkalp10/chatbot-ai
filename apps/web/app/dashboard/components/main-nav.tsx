@@ -13,7 +13,7 @@ const examples: { name: string; href: string; label?: string }[] = [
   },
   {
     name: "Content",
-    href: "/dashboard/content",
+    href: "/dashboard/content/files",
   },
   {
     name: "Chatbot",

@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 
 const DashboardLayout = ({ children }: { children: ReactNode }) => {
   return (
-    <>
+    <div>
       <div className="flex flex-col">
         <div className="border-b">
           <div className="flex h-16 items-center px-4">
@@ -35,9 +35,9 @@ const DashboardLayout = ({ children }: { children: ReactNode }) => {
             </div>
           </div>
         </div>
-        <div className="p-6">{children}</div>
       </div>
-    </>
+      <div>{children}</div>
+    </div>
   )
 }
 export default DashboardLayout

@@ -1,37 +1,60 @@
 import React from "react"
-import { File, Globe, Pencil } from "lucide-react"
+import Link from "next/link"
+import { File, Globe, Pencil, Plus, Podcast } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
 
 const page = () => {
   return (
-    <div className="flex  items-start space-x-4">
-      <div className="px-4 py-2">
-        <h2 className="mb-2 px-2 text-lg font-semibold tracking-tight">
-          Content source
-        </h2>
-        <div className="space-y-1">
-          <Button
-            variant="secondary"
-            size="sm"
-            className="w-full justify-start"
-          >
-            <File className="mr-2 h-4 w-4" />
-            Files
-          </Button>
-          <Button variant="ghost" size="sm" className="w-full justify-start">
-            <Pencil className="mr-2 h-4 w-4" />
-            Text
-          </Button>
-          <Button variant="ghost" size="sm" className="w-full justify-start">
-            <Globe className="mr-2 h-4 w-4" />
-            Website
-          </Button>
-        </div>
-      </div>
-      <Separator orientation="vertical" className="h-screen" />
-    </div>
+    <>Coming soon...</>
+    // <div className="min-w-full border border-dashed">
+    //   <div className="flex h-[450px] min-w-full items-center justify-center rounded-md ">
+    //     <div className="mx-auto flex flex-col items-center justify-center text-center">
+    //       <Podcast className="h-10 w-10 text-muted-foreground" />
+    //       <h3 className="mt-4 text-lg font-semibold">No files added</h3>
+    //       <p className="mb-4 mt-2 text-sm text-muted-foreground">
+    //         You have not added any files. Add one below.
+    //       </p>
+    //       <Dialog>
+    //         <DialogTrigger>
+    //           <Button size="sm" className="relative">
+    //             <Plus className="mr-2 h-4 w-4" />
+    //             Add File
+    //           </Button>
+    //         </DialogTrigger>
+    //         <DialogContent>
+    //           <DialogHeader>
+    //             <DialogTitle>Add File</DialogTitle>
+    //             <DialogDescription>
+    //               Copy and paste the podcast feed URL to import.
+    //             </DialogDescription>
+    //           </DialogHeader>
+    //           <div className="grid gap-4 py-4">
+    //             <div className="grid gap-2">
+    //               <Label htmlFor="url">Podcast URL</Label>
+    //               <Input id="url" placeholder="https://example.com/feed.xml" />
+    //             </div>
+    //           </div>
+    //           <DialogFooter>
+    //             <Button>Import File</Button>
+    //           </DialogFooter>
+    //         </DialogContent>
+    //       </Dialog>
+    //     </div>
+    //   </div>
+    // </div>
   )
 }
 
