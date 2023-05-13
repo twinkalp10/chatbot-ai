@@ -34,9 +34,8 @@ const DashboardLayout = ({ children }: { children: ReactNode }) => {
               <UserNav />
             </div>
           </div>
-          <div className="flex items-center"></div>
         </div>
-        {children}
+        <div className="p-6">{children}</div>
       </div>
     </>
   )
