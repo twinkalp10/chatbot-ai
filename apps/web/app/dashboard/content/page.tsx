@@ -16,7 +16,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
 
-const page = () => {
+const Page = () => {
   return (
     <>Coming soon...</>
     // <div className="min-w-full border border-dashed">
@@ -58,4 +58,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page

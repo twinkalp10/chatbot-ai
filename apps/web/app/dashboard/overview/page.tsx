@@ -7,7 +7,7 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 import ChatbotCard from "./component/chatbotCard"
 
-const page = () => {
+const Page = () => {
   return (
     <div className="flex flex-col items-stretch gap-6">
       <div className="flex w-full items-center space-x-2 ">
@@ -33,4 +33,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page

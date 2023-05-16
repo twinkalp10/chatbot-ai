@@ -5,7 +5,7 @@ import React, { useState } from "react"
 import ChatbotInput from "./component/ChatbotInput"
 import Table from "./component/Table"
 
-const page = () => {
+const Page = () => {
   const [showFirstComponent, setShowFirstComponent] = useState(true)
   return (
     <div>
@@ -18,4 +18,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page
