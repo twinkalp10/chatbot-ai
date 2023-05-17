@@ -21,7 +21,6 @@
     "express-validator": "^7.0.1",
     "gpt3-tokenizer": "^1.1.5",
     "jsonwebtoken": "^9.0.0",
-    "logger": "*",
     "morgan": "^1.10.0",
     "openai-edge": "^0.5.1",
     "puppeteer": "^20.1.1",
