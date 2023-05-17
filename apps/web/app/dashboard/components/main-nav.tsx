@@ -40,8 +40,8 @@ function MainNav({ className, ...props }: ExamplesNavProps) {
             className={cn(
               "flex items-center px-4",
               pathname === example.href
-                ? "text-primary font-bold"
-                : "text-muted-foreground font-medium"
+                ? "font-bold text-primary"
+                : "font-medium text-muted-foreground"
             )}
           >
             {example.name}{" "}

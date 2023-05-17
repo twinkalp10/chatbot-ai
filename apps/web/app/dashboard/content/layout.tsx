@@ -15,9 +15,6 @@ const ContentLayout = ({ children }: { children: ReactNode }) => {
     <>
       <div className="flex items-start ">
         <div className="px-4 py-2">
-          <h2 className="mb-2 px-2 text-lg font-semibold tracking-tight">
-            Content source
-          </h2>
           <div className="space-y-1">
             <Link href="/dashboard/content/files">
               <Button

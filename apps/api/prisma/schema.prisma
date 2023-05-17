@@ -1,0 +1,37 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @unique @default(cuid())
+  createdAt DateTime @default(now())
+
+  email    String @unique
+  password String
+  name     String
+}
+
+model Website {
+  id        String   @id @default(cuid())
+  number    Int
+  url       String
+  title     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  html      String
+}
+
+model ChatHistory {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  message   String
+  response  String
+}
