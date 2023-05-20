@@ -14,24 +14,21 @@ model User {
   id        String   @id @unique @default(cuid())
   createdAt DateTime @default(now())
 
-  email    String @unique
+  email    String    @unique
   password String
   name     String
+  Website  Website[]
 }
 
 model Website {
-  id        String   @id @default(cuid())
-  number    Int
-  url       String
-  title     String
+  id        String   @id @unique @default(cuid())
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  html      String
-}
 
-model ChatHistory {
-  id        String   @id @default(cuid())
-  createdAt DateTime @default(now())
-  message   String
-  response  String
+  name   String
+  url    String
+  userId String
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@unique([id, userId])
 }

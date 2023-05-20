@@ -36,7 +36,7 @@ const DashboardLayout = ({ children }: { children: ReactNode }) => {
           </div>
         </div>
       </div>
-      <div>{children}</div>
+      <div className="p-4">{children}</div>
     </div>
   )
 }

@@ -8,8 +8,8 @@ import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 
 const examples: { name: string; href: string; label?: string }[] = [
   {
-    name: "Overview",
-    href: "/dashboard/overview",
+    name: "Dashboard",
+    href: "/dashboard/",
   },
   {
     name: "Content",
@@ -40,8 +40,8 @@ function MainNav({ className, ...props }: ExamplesNavProps) {
             className={cn(
               "flex items-center px-4",
               pathname === example.href
-                ? "font-bold text-primary"
-                : "font-medium text-muted-foreground"
+                ? "text-primary font-bold"
+                : "text-muted-foreground font-medium"
             )}
           >
             {example.name}{" "}

@@ -33,8 +33,8 @@ const ChatbotCard = () => {
           </div>
         </CardHeader>
         <CardContent className="mt-7">
-          <div className="text-xs text-muted-foreground">
-            <div className=" grid gap-4 grid-cols-4">
+          <div className="text-muted-foreground text-xs">
+            <div className=" grid grid-cols-4 gap-4">
               <p>Code</p>
               <p>AI</p>
               <p>ChatGPT</p>

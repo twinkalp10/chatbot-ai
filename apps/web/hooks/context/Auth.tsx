@@ -21,13 +21,13 @@ export function AuthWrapper({ children }: { children: ReactNode }) {
   }
   if (loginStatus === "loading") {
     return (
-      <>
-        <Loader />
-      </>
+      <div className="flex h-screen items-center justify-center">
+        <Loader className="animate-spin" />
+      </div>
     )
   }
   if (loginStatus === "login") {
-    if (params.includes("/auth")) {
+    if (params.includes("/auth") || params === "/") {
       redirect("/dashboard")
     } else {
       return <>{children}</>
