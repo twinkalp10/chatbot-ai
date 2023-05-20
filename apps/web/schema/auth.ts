@@ -24,3 +24,14 @@ export const loginSchema = yup
       .min(8, "Password is too small"),
   })
   .required();
+
+export const websiteSchema = yup
+  .object({
+    name: yup
+      .string()
+      .required("website name is required"),
+    url: yup
+      .string().required("url is required")
+      .url("Please enter valid URL")
+  })
+  .required();
