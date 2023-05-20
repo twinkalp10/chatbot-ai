@@ -28,7 +28,7 @@
     "zod": "^3.21.4"
   },
   "engines": {
-    "node": ">=16.0.0 <17.0.0"
+    "node": ">=16.0.0"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
