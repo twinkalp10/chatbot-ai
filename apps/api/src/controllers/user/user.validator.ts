@@ -9,7 +9,7 @@ export const validateCreateNewUser = z.object({
    .email("Not a valid email"),
   password: z.string({
    required_error: "Password is required",
-  }).length(8, "Password must be at least 8 characters"),
+  }).max(15, "Invalid credentials").min(8, "Invalid credentials"),
  }),
 });
 export const validateLoginUser = z.object({
@@ -21,6 +21,6 @@ export const validateLoginUser = z.object({
    .email("Not a valid email"),
   password: z.string({
    required_error: "Password is required",
-  }).length(8, "Password must be at least 8 characters"),
+  }).max(15, "Password must be at least 8 characters").min(8, "Password must be at least 8 characters"),
  }),
 });
