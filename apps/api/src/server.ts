@@ -17,6 +17,14 @@ app
   .use(json())
   .use(cors())
 
+app.get('/', (req: Req, res: Res) => {
+  res.send('welcome to chatbot-ai api')
+})
+
+app.get('/health', (req: Req, res: Res) => {
+  res.send('ok')
+})
+
 app.use('/v1/auth', auth)
 app.use('/v1/scrap', scrap)
 
