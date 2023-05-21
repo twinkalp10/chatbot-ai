@@ -2,7 +2,7 @@ import { getAuthToken } from '@/utils/authToken';
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL ? process.env.NEXT_PUBLIC_API_URL : 'https://chatbot-ai-api.onrender.com',
+  baseURL: process.env.NEXT_PUBLIC_API_URL ? process.env.NEXT_PUBLIC_API_URL : 'https://api.chatbot-ai.xyz',
 });
 
 

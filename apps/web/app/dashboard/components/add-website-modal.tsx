@@ -6,7 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import { Loader2 } from "lucide-react"
 import { useForm } from "react-hook-form"
 
-import { IWebsite, WebsiteValues } from "@/types/auth"
+import { ChatbotValues, IChatbot } from "@/types/chatbot"
 import { ApiError } from "@/types/error"
 import axiosInstance from "@/lib/axios"
 import { cn } from "@/lib/utils"
@@ -21,23 +21,23 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
-interface UserAuthFormProps {
+interface WebsiteModalProps {
   onClose: () => void
 }
 
-export function AddWebsiteModal({ onClose }: UserAuthFormProps) {
+export function AddWebsiteModal({ onClose }: WebsiteModalProps) {
   const [isLoading, setIsLoading] = React.useState(false)
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<WebsiteValues>({
+  } = useForm<ChatbotValues>({
     resolver: yupResolver(websiteSchema),
   })
-  async function onSubmit(value: WebsiteValues) {
+  async function onSubmit(value: ChatbotValues) {
     setIsLoading(true)
     try {
-      const res = await axiosInstance.post<IWebsite>("/v1/website/", value)
+      const res = await axiosInstance.post<IChatbot>("/v1/chatbot/", value)
       console.log(res)
       onClose()
       setIsLoading(false)
@@ -50,9 +50,9 @@ export function AddWebsiteModal({ onClose }: UserAuthFormProps) {
   return (
     <DialogContent>
       <DialogHeader>
-        <DialogTitle>Add Website</DialogTitle>
+        <DialogTitle>Add Chatbot</DialogTitle>
         <DialogDescription>
-          Add a website with name and website URL.
+          Add a website name and URL to create chatbot.
         </DialogDescription>
       </DialogHeader>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -78,17 +78,17 @@ export function AddWebsiteModal({ onClose }: UserAuthFormProps) {
             <div className="space-y-2">
               <Label htmlFor="name">Website URL</Label>
               <Input
-                id="url"
+                id="website"
                 placeholder="Acme.xyz"
                 autoCapitalize="none"
                 autoComplete="password"
                 autoCorrect="off"
                 disabled={isLoading}
-                {...register("url")}
+                {...register("website")}
               />
-              {errors.url?.message && (
+              {errors.website?.message && (
                 <Label htmlFor="email" variant="error">
-                  {errors.url.message.toString()}
+                  {errors.website.message.toString()}
                 </Label>
               )}
             </div>
