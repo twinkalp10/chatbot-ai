@@ -1,5 +1,6 @@
 import "@/styles/globals.css"
 import { Metadata } from "next"
+import { Analytics } from "@vercel/analytics/react"
 
 import { siteConfig } from "@/config/site"
 import { fontSans } from "@/lib/fonts"
@@ -37,20 +38,23 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <head />
         <body
           className={cn(
-            "bg-background min-h-screen font-sans antialiased",
+            "bg-background  flex min-h-screen flex-col items-center justify-center font-sans antialiased",
             fontSans.variable
           )}
         >
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            <AuthWrapper>
-              <SWRConfigHOC>
-                <div className="relative flex min-h-screen flex-col">
-                  <div className="flex-1">{children}</div>
-                </div>
-              </SWRConfigHOC>
-            </AuthWrapper>
-            <TailwindIndicator />
+            <div className="h-full w-full">
+              <AuthWrapper>
+                <SWRConfigHOC>
+                  <div className="relative flex min-h-screen flex-col">
+                    <div className="flex-1">{children}</div>
+                  </div>
+                </SWRConfigHOC>
+              </AuthWrapper>
+              <TailwindIndicator />
+            </div>
           </ThemeProvider>
+          <Analytics />
         </body>
       </html>
     </>
