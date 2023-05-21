@@ -4,5 +4,5 @@ export interface ChatbotValues {
 }
 
 export interface IChatbot extends ChatbotValues {
-  id: number
+  id: string
 }
