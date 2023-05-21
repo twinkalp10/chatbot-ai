@@ -1,10 +1,11 @@
+"use client"
+
 import React from "react"
+import { useParams, usePathname } from "next/navigation"
 
-export function getStaticParams() {}
-
-const Chatbot = ({ params }: any) => {
-  const { chatbotId } = params
-  return <div>{chatbotId}</div>
+const Chatbot = () => {
+  const pathname = useParams()
+  return <div>{pathname.chatbotId}</div>
 }
 
 export default Chatbot
