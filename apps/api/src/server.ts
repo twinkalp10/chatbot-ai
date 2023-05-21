@@ -29,7 +29,7 @@ app.use('/v1/auth', auth)
 app.use('/v1/scrap', scrap)
 
 app.use('/v1/user', protect, user)
-app.use('/v1/chatbot', chatbot)
+app.use('/v1/chatbot', protect, chatbot)
 
 
 app.use((req: Req, res: Res) => {
