@@ -14,15 +14,19 @@ export const addChatbot = async (req: Req, res: Res) => {
  const { name, url } = req.body
  const userId = req?.user?.id
  if (userId) {
-
-  const website = await db.website.create({
-   data: {
-    name,
-    url,
-    userId
-   }
-  })
-  res.send({ data: website, success: true })
+  try {
+   const website = await db.website.create({
+    data: {
+     name,
+     url,
+     userId
+    }
+   })
+   res.send({ data: website, success: true })
+  } catch (e) {
+   console.log(e)
+   res.send({ message: "Unable to added the chatbot", success: false, error: e })
+  }
  } else {
   return res.status(401).send({ message: "Unauthorized" })
  }
