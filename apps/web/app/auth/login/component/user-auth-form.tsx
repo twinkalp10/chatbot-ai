@@ -35,7 +35,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
     setIsLoading(true)
     try {
       const res = await axiosInstance.post<{ token: string; success: boolean }>(
-        "/v1/auth/login",
+        "/auth/login",
         value
       )
       const { token } = res.data

@@ -1,6 +1,6 @@
 export interface ChatbotValues {
   name: string
-  website: string
+  url: string
 }
 
 export interface IChatbot extends ChatbotValues {

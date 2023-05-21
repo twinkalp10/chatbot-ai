@@ -24,7 +24,7 @@ const useUser = create<IUseUser>((set) => ({
     const token = getAuthToken()
     try {
       if (token) {
-        const response = await axiosInstance.get<{ data: User }>(`/v1/user/me`)
+        const response = await axiosInstance.get<{ data: User }>(`/user/me`)
         set({
           loginStatus: `login`,
           user: response.data.data,

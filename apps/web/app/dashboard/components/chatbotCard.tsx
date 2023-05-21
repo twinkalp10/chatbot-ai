@@ -1,6 +1,7 @@
 import React from "react"
 import Avatar from "boring-avatars"
 
+import { IChatbot } from "@/types/chatbot"
 import {
   Card,
   CardContent,
@@ -10,7 +11,11 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 
-const ChatbotCard = () => {
+interface IChatbotCard {
+  chatbot: IChatbot
+}
+
+const ChatbotCard = ({ chatbot }: IChatbotCard) => {
   return (
     <div>
       <Card>
@@ -24,10 +29,10 @@ const ChatbotCard = () => {
             />
             <div>
               <CardTitle className="text-base font-medium">
-                Website Name
+                {chatbot.name}
               </CardTitle>
               <p className="text-sm font-normal text-slate-400">
-                websiteName.vercel.app
+                {chatbot.url}
               </p>
             </div>
           </div>

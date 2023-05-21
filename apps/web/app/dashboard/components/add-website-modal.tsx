@@ -1,10 +1,11 @@
 "use client"
 
 import * as React from "react"
-import { websiteSchema } from "@/schema/auth"
+import { chatbotSchema } from "@/schema/chatbot"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { Loader2 } from "lucide-react"
 import { useForm } from "react-hook-form"
+import { mutate } from "swr"
 
 import { ChatbotValues, IChatbot } from "@/types/chatbot"
 import { ApiError } from "@/types/error"
@@ -32,13 +33,16 @@ export function AddWebsiteModal({ onClose }: WebsiteModalProps) {
     handleSubmit,
     formState: { errors },
   } = useForm<ChatbotValues>({
-    resolver: yupResolver(websiteSchema),
+    resolver: yupResolver(chatbotSchema),
   })
   async function onSubmit(value: ChatbotValues) {
     setIsLoading(true)
     try {
-      const res = await axiosInstance.post<IChatbot>("/v1/chatbot/", value)
-      console.log(res)
+      const { data } = await axiosInstance.post<{ data: IChatbot }>(
+        "/chatbot/",
+        value
+      )
+      mutate("/chatbot", (oldData) => [...oldData, data.data])
       onClose()
       setIsLoading(false)
     } catch (error) {
@@ -75,14 +79,14 @@ export function AddWebsiteModal({ onClose }: WebsiteModalProps) {
             <div className="space-y-2">
               <Label htmlFor="website">Website URL</Label>
               <Input
-                id="website"
+                id="url"
                 placeholder="https://chatbot-ai.com"
                 disabled={isLoading}
-                {...register("website")}
+                {...register("url")}
               />
-              {errors.website?.message && (
+              {errors.url?.message && (
                 <Label htmlFor="email" variant="error">
-                  {errors.website.message.toString()}
+                  {errors.url.message.toString()}
                 </Label>
               )}
             </div>
