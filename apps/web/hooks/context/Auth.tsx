@@ -12,6 +12,10 @@ export function AuthWrapper({ children }: { children: ReactNode }) {
 
   useEffect(() => void fetchUser(), [fetchUser])
 
+  if (params === "/") {
+    return <>{children}</>
+  }
+
   if (loginStatus === "logout") {
     if (params.includes("/auth")) {
       return <>{children}</>
@@ -27,7 +31,7 @@ export function AuthWrapper({ children }: { children: ReactNode }) {
     )
   }
   if (loginStatus === "login") {
-    if (params.includes("/auth") || params === "/") {
+    if (params.includes("/auth")) {
       redirect("/dashboard")
     } else {
       return <>{children}</>

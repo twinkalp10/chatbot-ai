@@ -23,21 +23,27 @@ export const createNewUser = async (req: Req, res: Res) => {
 
 export const loginUser = async (req: Req, res: Res) => {
  const { email, password } = req.body
- const user = await db.user.findUnique({
-  where: { email }
- })
- if (!user) {
-  return res.status(404).send({ message: 'User not found', success: false })
+ try {
+
+  const user = await db.user.findUnique({
+   where: { email }
+  })
+  if (!user) {
+   return res.status(404).send({ message: 'User not found', success: false })
+  }
+  if (!user.password) {
+   return res.status(401).send({ message: 'Invalid credentials', success: false })
+  }
+  const valid = comparePassword(password, user.password)
+  if (!valid) {
+   return res.status(401).send({ message: 'Invalid credentials', success: false })
+  }
+  const token = createJWT(user)
+  res.status(200).send({ token })
+ } catch (e) {
+  console.log(e)
+  res.status(401).send({ message: 'Invalid credentials', success: false })
  }
- if (!user.password) {
-  return res.status(401).send({ message: 'Invalid credentials', success: false })
- }
- const valid = await comparePassword(password, user.password)
- if (!valid) {
-  return res.status(401).send({ message: 'Invalid credentials', success: false })
- }
- const token = createJWT(user)
- res.status(200).send({ token })
 }
 
 export const getUser = async (req: Req, res: Res) => {
