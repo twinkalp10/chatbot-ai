@@ -13,8 +13,8 @@ import {
 } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
+import ChatbotSwitcher from "./components/chatbotList"
 import { MainNav } from "./components/main-nav"
-import TeamSwitcher from "./components/chatbotList"
 import { UserNav } from "./components/user-nav"
 
 export const metadata: Metadata = {
@@ -28,7 +28,7 @@ const DashboardLayout = ({ children }: { children: ReactNode }) => {
       <div className="flex flex-col">
         <div className="border-b">
           <div className="flex h-16 items-center px-4">
-            <TeamSwitcher />
+            <ChatbotSwitcher />
             <MainNav className="mx-2" />
             <div className="ml-auto flex items-center space-x-4">
               <UserNav />

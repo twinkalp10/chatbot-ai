@@ -37,6 +37,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
+import { Skeleton } from "@/components/ui/skeleton"
 
 import { AddWebsiteModal } from "./add-website-modal"
 import ChatbotsData from "./chatbotsData"
@@ -60,6 +61,7 @@ export default function ChatbotSwitcher({ className }: ChatbotSwitcherProps) {
   const selectedChatbot = data?.find(
     (chatbot) => chatbot.id === pathname?.chatbotId
   )
+
   return (
     <Dialog open={showAddWebsiteDialog} onOpenChange={setShowAddWebsiteDialog}>
       <Popover open={open} onOpenChange={setOpen}>
