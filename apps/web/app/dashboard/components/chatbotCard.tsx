@@ -1,7 +1,9 @@
 import React from "react"
 import Avatar from "boring-avatars"
+import { DropletIcon } from "lucide-react"
 
 import { IChatbot } from "@/types/chatbot"
+import { Button } from "@/components/ui/button"
 import {
   Card,
   CardContent,
@@ -10,6 +12,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import Link from "next/link"
 
 interface IChatbotCard {
   chatbot: IChatbot
@@ -18,7 +21,8 @@ interface IChatbotCard {
 const ChatbotCard = ({ chatbot }: IChatbotCard) => {
   return (
     <div>
-      <Card>
+      <Link href={`/dashboard/${chatbot.id}`}>
+         <Card className="hover:border-white cursor-pointer">
         <CardHeader className="flex flex-col items-start justify-between space-y-0 pb-2">
           <div className="flex items-center gap-2">
             <Avatar
@@ -47,6 +51,8 @@ const ChatbotCard = ({ chatbot }: IChatbotCard) => {
           </div>
         </CardContent>
       </Card>
+      </Link>
+
     </div>
   )
 }

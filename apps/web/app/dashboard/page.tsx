@@ -11,15 +11,11 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
+import AddChatbotButton from "./components/addChatbotButton"
 import ChatbotCard from "./components/chatbotCard"
+import ChatbotsData from "./components/chatbotsData"
 
 const Page = () => {
-  const { loginStatus } = useUser()
-  const { data, error, isLoading } = useSWR<IChatbot[]>(
-    loginStatus === "login" && "/chatbot",
-    fetcher
-  )
-
   return (
     <div className="flex flex-col items-stretch gap-6">
       <div className="flex w-full items-center space-x-2 ">
@@ -34,15 +30,9 @@ const Page = () => {
             </TabsTrigger>
           </TabsList>
         </Tabs>
-        <Button type="button" className="whitespace-nowrap">
-          <Plus className="mr-2 h-4 w-4" /> Add chatbot
-        </Button>
+        <AddChatbotButton />
       </div>
-      <div className="grid grid-cols-5 gap-4">
-        {data?.map((chatbot) => {
-          return <ChatbotCard chatbot={chatbot} />
-        })}
-      </div>
+      <ChatbotsData />
     </div>
   )
 }

@@ -31,6 +31,7 @@ export function AddWebsiteModal({ onClose }: WebsiteModalProps) {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<ChatbotValues>({
     resolver: yupResolver(chatbotSchema),
@@ -44,6 +45,7 @@ export function AddWebsiteModal({ onClose }: WebsiteModalProps) {
       )
       mutate("/chatbot", (oldData) => [...oldData, data.data])
       onClose()
+      reset()
       setIsLoading(false)
     } catch (error) {
       const serverError = error as ApiError

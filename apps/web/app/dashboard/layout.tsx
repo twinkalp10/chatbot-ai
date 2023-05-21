@@ -14,7 +14,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 import { MainNav } from "./components/main-nav"
-import TeamSwitcher from "./components/team-switcher"
+import TeamSwitcher from "./components/chatbotList"
 import { UserNav } from "./components/user-nav"
 
 export const metadata: Metadata = {
