@@ -1,7 +1,7 @@
 import db from "../../configs/db.config"
 import { Req, Res } from "../../type"
 
-export const getAllWebsite = async (req: Req, res: Res) => {
+export const getAllChatbot = async (req: Req, res: Res) => {
  const websites = await db.website.findMany({
   where: {
    userId: req?.user?.id
@@ -10,7 +10,7 @@ export const getAllWebsite = async (req: Req, res: Res) => {
  res.send({ data: websites, success: true })
 }
 
-export const addWebsite = async (req: Req, res: Res) => {
+export const addChatbot = async (req: Req, res: Res) => {
  const { name, url } = req.body
  const userId = req?.user?.id
  if (userId) {
@@ -28,7 +28,7 @@ export const addWebsite = async (req: Req, res: Res) => {
  }
 }
 
-export const updateWebsite = async (req: Req, res: Res) => {
+export const updateChatbot = async (req: Req, res: Res) => {
  const { name, url } = req.body
  const { id } = req.params
  const userId = req?.user?.id
@@ -54,7 +54,7 @@ export const updateWebsite = async (req: Req, res: Res) => {
  }
 }
 
-export const deleteWebsite = async (req: Req, res: Res) => {
+export const deleteChatbot = async (req: Req, res: Res) => {
  const { id } = req.params
  const userId = req?.user?.id
  if (userId) {
