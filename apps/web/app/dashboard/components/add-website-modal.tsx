@@ -62,27 +62,21 @@ export function AddWebsiteModal({ onClose }: WebsiteModalProps) {
               <Label htmlFor="name">Website Name</Label>
               <Input
                 id="name"
-                placeholder="Acme Inc."
-                autoCapitalize="none"
-                autoComplete="password"
-                autoCorrect="off"
+                placeholder="Chatbot AI"
                 disabled={isLoading}
                 {...register("name")}
               />
               {errors.name?.message && (
-                <Label htmlFor="email" variant="error">
+                <Label htmlFor="name" variant="error">
                   {errors.name.message.toString()}
                 </Label>
               )}
             </div>
             <div className="space-y-2">
-              <Label htmlFor="name">Website URL</Label>
+              <Label htmlFor="website">Website URL</Label>
               <Input
                 id="website"
-                placeholder="Acme.xyz"
-                autoCapitalize="none"
-                autoComplete="password"
-                autoCorrect="off"
+                placeholder="https://chatbot-ai.com"
                 disabled={isLoading}
                 {...register("website")}
               />
