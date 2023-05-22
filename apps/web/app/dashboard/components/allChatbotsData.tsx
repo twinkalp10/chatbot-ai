@@ -46,7 +46,7 @@ const ChatbotsData = () => {
       <div className="flex w-full items-center space-x-2 ">
         <Input
           type="search"
-          placeholder="Search chatbot with name..."
+          placeholder="Search chatbot..."
           className="w-full"
           value={selectedQuery}
           onChange={(event) => setSelectedQuery(event.target.value)}
