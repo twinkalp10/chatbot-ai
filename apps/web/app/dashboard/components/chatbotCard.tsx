@@ -1,29 +1,23 @@
 import React from "react"
 import Link from "next/link"
 import Avatar from "boring-avatars"
-import { DropletIcon } from "lucide-react"
 
 import { IChatbot } from "@/types/chatbot"
-import { Button } from "@/components/ui/button"
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
+import { Card, CardHeader, CardTitle } from "@/components/ui/card"
 
-interface IChatbotCard {
+import { ChatbotOperations } from "./chatbotOperations"
+
+export interface IChatbotCard {
   chatbot: IChatbot
 }
 
 const ChatbotCard = ({ chatbot }: IChatbotCard) => {
   return (
-    <div>
+    <div className="relative">
+      <ChatbotOperations chatbot={chatbot} />
       <Link href={`/dashboard/${chatbot.id}`}>
         <Card className="hover:border-white cursor-pointer">
-          <CardHeader className="flex flex-col items-start justify-between space-y-0 pb-2">
+          <CardHeader className="flex flex-col items-start justify-between space-y-0 pb-4">
             <div className="flex items-center gap-2">
               <Avatar
                 size={40}

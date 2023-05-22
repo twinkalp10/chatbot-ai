@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
-import ChatbotSwitcher from "./components/chatbotList"
+import ChatbotSwitcher from "./components/chatbotSwitcher"
 import { MainNav } from "./components/main-nav"
 import { UserNav } from "./components/user-nav"
 

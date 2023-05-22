@@ -4,7 +4,7 @@ import { Plus } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Dialog } from "@/components/ui/dialog"
 
-import { AddWebsiteModal } from "./add-website-modal"
+import { AddWebsiteModal } from "./addChatbotModal"
 
 const AddChatbotButton = () => {
   const [showAddWebsiteDialog, setShowAddWebsiteDialog] = React.useState(false)

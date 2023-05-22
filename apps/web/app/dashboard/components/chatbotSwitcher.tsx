@@ -10,7 +10,6 @@ import { IChatbot } from "@/types/chatbot"
 import { fetcher } from "@/lib/axios"
 import { cn } from "@/lib/utils"
 import useUser from "@/hooks/useUser"
-import { AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import {
   Command,
@@ -30,17 +29,13 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
-import { Skeleton } from "@/components/ui/skeleton"
 
-import { AddWebsiteModal } from "./add-website-modal"
-import ChatbotsData from "./chatbotsData"
+import { AddWebsiteModal } from "./addChatbotModal"
 
 type PopoverTriggerProps = React.ComponentPropsWithoutRef<typeof PopoverTrigger>
 
@@ -58,9 +53,10 @@ export default function ChatbotSwitcher({ className }: ChatbotSwitcherProps) {
   const router = useRouter()
 
   const pathname = useParams() as { chatbotId?: string }
-  const selectedChatbot = data?.find(
-    (chatbot) => chatbot.id === pathname?.chatbotId
-  )
+
+  const selectedChatbot = data?.find((chatbot) => {
+    return chatbot.id === pathname?.chatbotId
+  })
 
   return (
     <Dialog open={showAddWebsiteDialog} onOpenChange={setShowAddWebsiteDialog}>
@@ -87,7 +83,10 @@ export default function ChatbotSwitcher({ className }: ChatbotSwitcherProps) {
             </PopoverTrigger>
             <PopoverContent className="w-[200px] p-0">
               <Command>
-                <CommandList>
+                <CommandList
+                  className="overflow-y-auto scrollbar-hide"
+                  style={{ maxHeight: "100vh" }}
+                >
                   <CommandInput placeholder="Search chatbot..." />
                   <CommandEmpty>No chatbot found.</CommandEmpty>
                   <CommandGroup heading={`All Chatbots`}>
