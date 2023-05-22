@@ -61,8 +61,13 @@ export function ChatbotOperations({ chatbot }: IChatbotOperations) {
       const response = await axiosInstance.delete<{ data: IChatbot }>(
         `/chatbot/${chatbotId}`
       )
-      mutate("/chatbot", (oldData) => [...oldData, response.data.data])
-      console.log(response.data, "deleted chatbot is: ", chatbotId)
+      mutate("/chatbot", (oldData) =>
+        oldData.filter((chatbotData: IChatbot) => {
+          if (chatbotData.id !== chatbot.id) {
+            return chatbotData
+          }
+        })
+      )
     } catch (error) {
       const serverError = error as ApiError
     }
@@ -76,7 +81,12 @@ export function ChatbotOperations({ chatbot }: IChatbotOperations) {
         `/chatbot/${chatbot.id}`,
         formData
       )
-      mutate("/chatbot", (oldData) => [...oldData, response.data.data])
+      mutate("/chatbot", (oldData) =>
+        oldData.map((chatbotData: IChatbot) => {
+          if (chatbotData.id === chatbot.id) return response.data.data
+          return chatbotData
+        })
+      )
       setIsEditLoading(false)
       setShowEditAlert(false)
       router.refresh()
