@@ -8,11 +8,6 @@ import ChatbotSwitcher from "./components/chatbotSwitcher"
 import { MainNav } from "./components/main-nav"
 import { UserNav } from "./components/user-nav"
 
-export const metadata: Metadata = {
-  title: "Dashboard",
-  description: "Example dashboard app using the components.",
-}
-
 const DashboardLayout = ({ children }: { children: ReactNode }) => {
   const pathname = useParams()
   console.log(pathname)
@@ -23,7 +18,7 @@ const DashboardLayout = ({ children }: { children: ReactNode }) => {
           <div
             className={
               pathname
-                ? "flex h-26 items-stretch px-4 py-2"
+                ? "h-26 flex items-stretch px-4 py-2"
                 : "flex h-16 items-center px-4 py-2"
             }
           >

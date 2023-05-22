@@ -2,10 +2,19 @@
 
 import { useState } from "react"
 import Link from "next/link"
+import { faqData } from "@/content/faq"
 import { motion } from "framer-motion"
 import { ArrowRight, MessageCircle } from "lucide-react"
 
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
 import { Button } from "@/components/ui/button"
+
+import { SiteFooter } from "./component/footer"
 
 let tabs = [
   { path: "/how-it-works", label: "How it works" },
@@ -17,8 +26,8 @@ export default function IndexPage() {
   let [activeTab, setActiveTab] = useState(tabs[0].path)
 
   return (
-    <div>
-      <nav className="flex items-center justify-between p-4">
+    <div className="">
+      <nav className="m-auto flex max-w-7xl items-center justify-between p-4">
         <div className="flex">
           <Link href="/" className="flex items-center gap-2">
             <MessageCircle className="h-6 w-6" />
@@ -59,7 +68,7 @@ export default function IndexPage() {
           <Button>Signup</Button>
         </div>
       </nav>
-      <section className="container grid items-center gap-6 pb-8 pt-6 md:py-10">
+      <section className="container m-auto grid max-w-7xl items-center gap-6 pb-8 pt-6 md:py-10">
         <div className="flex flex-col items-center gap-2">
           <h1 className="w-full text-center text-3xl font-extrabold leading-tight tracking-tighter sm:text-3xl md:text-5xl lg:text-6xl">
             Welcome to Chatbot AI
@@ -75,8 +84,21 @@ export default function IndexPage() {
             website.
           </p>
         </div>
-        <div className="text-c flex gap-4">Coming Soon</div>
+
+        <Accordion
+          type="single"
+          collapsible
+          className="m-auto w-full max-w-3xl"
+        >
+          {faqData.map(({ question, answer, id }) => (
+            <AccordionItem value={`item-${id}`}>
+              <AccordionTrigger>{question}</AccordionTrigger>
+              <AccordionContent>{answer}</AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
       </section>
+      <SiteFooter className="border-t" />
     </div>
   )
 }
