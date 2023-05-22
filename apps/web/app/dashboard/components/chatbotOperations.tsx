@@ -33,6 +33,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { useToast } from "@/components/ui/use-toast"
 
 import { IChatbotCard } from "./chatbotCard"
 
@@ -50,6 +51,7 @@ export function ChatbotOperations({ chatbot }: IChatbotOperations) {
       url: chatbot.url,
     },
   })
+  const { toast } = useToast()
   const router = useRouter()
   const [showDeleteAlert, setShowDeleteAlert] = React.useState<boolean>(false)
   const [isDeleteLoading, setIsDeleteLoading] = React.useState<boolean>(false)
@@ -61,6 +63,9 @@ export function ChatbotOperations({ chatbot }: IChatbotOperations) {
       const response = await axiosInstance.delete<{ data: IChatbot }>(
         `/chatbot/${chatbotId}`
       )
+      toast({
+        title: "Chatbot deleted successfully!",
+      })
       mutate("/chatbot", (oldData) =>
         oldData.filter((chatbotData: IChatbot) => {
           if (chatbotData.id !== chatbot.id) {
@@ -81,6 +86,9 @@ export function ChatbotOperations({ chatbot }: IChatbotOperations) {
         `/chatbot/${chatbot.id}`,
         formData
       )
+      toast({
+        title: "Chatbot updated successfully!",
+      })
       mutate("/chatbot", (oldData) =>
         oldData.map((chatbotData: IChatbot) => {
           if (chatbotData.id === chatbot.id) return response.data.data
@@ -96,9 +104,9 @@ export function ChatbotOperations({ chatbot }: IChatbotOperations) {
   }
 
   return (
-    <div className="absolute right-0">
+    <div className="absolute right-1 top-1">
       <DropdownMenu>
-        <DropdownMenuTrigger className="flex h-8 w-8 items-center justify-center rounded-md  transition-colors hover:bg-muted">
+        <DropdownMenuTrigger className="flex h-8 w-8 items-center justify-center rounded-md transition-colors hover:bg-muted">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="20"
@@ -221,6 +229,17 @@ export function ChatbotOperations({ chatbot }: IChatbotOperations) {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+      {/* <Button
+        variant="outline"
+        onClick={() => {
+          console.log("toast")
+          toast({
+            description: "Your message has been sent.",
+          })
+        }}
+      >
+        Show Toast
+      </Button> */}
     </div>
   )
 }

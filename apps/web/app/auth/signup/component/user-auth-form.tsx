@@ -16,6 +16,7 @@ import useUser from "@/hooks/useUser"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { useToast } from "@/components/ui/use-toast"
 import { Icons } from "@/components/icons"
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
@@ -23,6 +24,7 @@ interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   const [isLoading, setIsLoading] = React.useState(false)
   const { fetchUser } = useUser()
+  const { toast } = useToast()
   const {
     register,
     handleSubmit,
@@ -40,6 +42,9 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
       const { token } = res.data
       setAuthToken(token)
       fetchUser()
+      toast({
+        title: "Signed Up successfully!",
+      })
       Router.push("/dashboard")
       setIsLoading(false)
     } catch (error) {

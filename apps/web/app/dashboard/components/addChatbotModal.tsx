@@ -21,12 +21,14 @@ import {
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { useToast } from "@/components/ui/use-toast"
 
 interface WebsiteModalProps {
   onClose: () => void
 }
 
 export function AddWebsiteModal({ onClose }: WebsiteModalProps) {
+  const { toast } = useToast()
   const [isLoading, setIsLoading] = React.useState(false)
   const {
     register,
@@ -43,6 +45,9 @@ export function AddWebsiteModal({ onClose }: WebsiteModalProps) {
         "/chatbot/",
         value
       )
+      toast({
+        title: "New Chatbot added successfully!",
+      })
       mutate("/chatbot", (oldData) => [...oldData, data.data])
       onClose()
       reset()

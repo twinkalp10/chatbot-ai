@@ -7,6 +7,7 @@ import { fontSans } from "@/lib/fonts"
 import { cn } from "@/lib/utils"
 import { AuthWrapper } from "@/hooks/context/Auth"
 import { SWRConfigHOC } from "@/hooks/context/SwrConfig"
+import { Toaster } from "@/components/ui/toaster"
 import { TailwindIndicator } from "@/components/tailwind-indicator"
 import { ThemeProvider } from "@/components/theme-provider"
 
@@ -55,6 +56,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
             </div>
           </ThemeProvider>
           <Analytics />
+          <Toaster />
         </body>
       </html>
     </>

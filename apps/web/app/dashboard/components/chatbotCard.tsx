@@ -17,7 +17,7 @@ const ChatbotCard = ({ chatbot }: IChatbotCard) => {
       <ChatbotOperations chatbot={chatbot} />
       <Link href={`/dashboard/${chatbot.id}`}>
         <Card className="hover:border-white cursor-pointer">
-          <CardHeader className="flex flex-col items-start justify-between space-y-0 pb-4">
+          <CardHeader className="flex flex-col items-start justify-between space-y-0 pb-6">
             <div className="flex items-center gap-2">
               <Avatar
                 size={40}
