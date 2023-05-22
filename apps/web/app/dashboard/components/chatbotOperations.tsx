@@ -229,17 +229,6 @@ export function ChatbotOperations({ chatbot }: IChatbotOperations) {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-      {/* <Button
-        variant="outline"
-        onClick={() => {
-          console.log("toast")
-          toast({
-            description: "Your message has been sent.",
-          })
-        }}
-      >
-        Show Toast
-      </Button> */}
     </div>
   )
 }

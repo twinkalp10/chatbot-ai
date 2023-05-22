@@ -21,6 +21,14 @@ const ChatbotsData = () => {
   )
 
   const [selectedTab, setSelectedTab] = useState("grid")
+  const [selectedQuery, setSelectedQuery] = useState("")
+
+  const filteredSearch = data?.filter((item) => {
+    const searchQuery = selectedQuery.toLowerCase()
+    const nameQuery = item.name.toLowerCase()
+    const urlQuery = item.url.toLowerCase()
+    return nameQuery.includes(searchQuery) || urlQuery.includes(searchQuery)
+  })
 
   if (error) {
     return <div>Error fetching data...</div>
@@ -36,7 +44,14 @@ const ChatbotsData = () => {
   return (
     <>
       <div className="flex w-full items-center space-x-2 ">
-        <Input type="search" placeholder="Search..." className="w-full" />
+        <Input
+          type="search"
+          placeholder="Search chatbot with name..."
+          className="w-full"
+          value={selectedQuery}
+          onChange={(event) => setSelectedQuery(event.target.value)}
+        />
+
         <Tabs defaultValue="grid">
           <TabsList>
             <TabsTrigger value="grid" onClick={() => setSelectedTab("grid")}>
@@ -56,7 +71,7 @@ const ChatbotsData = () => {
             : "flex flex-col gap-3"
         }
       >
-        {data?.map((chatbot, index) => {
+        {filteredSearch?.map((chatbot, index) => {
           return <ChatbotCard chatbot={chatbot} key={index} />
         })}
       </div>
