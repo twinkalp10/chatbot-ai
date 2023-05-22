@@ -2,7 +2,7 @@
 
 import React from "react"
 
-import ChatbotsData from "./components/chatbotsData"
+import ChatbotsData from "./components/allChatbotsData"
 
 const Page = () => {
   return (

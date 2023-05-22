@@ -1,19 +1,17 @@
 "use client"
 
 import * as React from "react"
-import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { chatbotSchema } from "@/schema/chatbot"
 import { yupResolver } from "@hookform/resolvers/yup"
-import { Edit, Edit3Icon, Loader2, Recycle, Trash } from "lucide-react"
+import { Loader2, Recycle, Trash } from "lucide-react"
 import { useForm } from "react-hook-form"
-import useSWR, { mutate } from "swr"
+import { mutate } from "swr"
 
 import { ChatbotValues, IChatbot } from "@/types/chatbot"
 import { ApiError } from "@/types/error"
-import axiosInstance, { fetcher } from "@/lib/axios"
+import axiosInstance from "@/lib/axios"
 import { cn } from "@/lib/utils"
-import useUser from "@/hooks/useUser"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -25,13 +23,7 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog"
 import { Button } from "@/components/ui/button"
-import {
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog"
+import { DialogFooter } from "@/components/ui/dialog"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -88,7 +80,6 @@ export function ChatbotOperations({ chatbot }: IChatbotOperations) {
       setIsEditLoading(false)
       setShowEditAlert(false)
       router.refresh()
-      console.log(response.data, "edited chatbot is: ", chatbot.id)
     } catch (error) {
       const serverError = error as ApiError
     }
