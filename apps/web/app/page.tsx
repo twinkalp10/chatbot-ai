@@ -91,7 +91,11 @@ export default function IndexPage() {
           className="m-auto w-full max-w-3xl"
         >
           {faqData.map(({ question, answer, id }) => (
-            <AccordionItem value={`item-${id}`}>
+            <AccordionItem
+              value={`according-${id}`}
+              key={`according-${id}`}
+              className="text-primary"
+            >
               <AccordionTrigger>{question}</AccordionTrigger>
               <AccordionContent>{answer}</AccordionContent>
             </AccordionItem>
