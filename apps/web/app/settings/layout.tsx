@@ -3,6 +3,8 @@ import Image from "next/image"
 
 import { Separator } from "@/components/ui/separator"
 
+import ChatbotSwitcher from "../dashboard/components/chatbotSwitcher"
+import { UserNav } from "../dashboard/components/user-nav"
 import { SidebarNav } from "./components/sidebar-nav"
 
 export const metadata: Metadata = {
@@ -13,16 +15,16 @@ export const metadata: Metadata = {
 const sidebarNavItems = [
   {
     title: "Account",
-    href: "/dashboard/settings",
+    href: "/settings",
   },
 
   {
     title: "Notifications",
-    href: "/dashboard/settings/notification",
+    href: "/settings/notification",
   },
   {
     title: "Billing",
-    href: "/dashboard/settings/billing",
+    href: "/settings/billing",
   },
 ]
 
@@ -50,11 +52,15 @@ export default function SettingsLayout({ children }: SettingsLayoutProps) {
         />
       </div>
       <div className="hidden space-y-6 p-4 pb-12 md:block">
-        <div className="space-y-0.5">
-          <h2 className="text-2xl font-bold tracking-tight">Settings</h2>
-          <p className="text-muted-foreground">
-            Manage your account settings and set e-mail preferences.
-          </p>
+        <div className="flex items-center justify-between">
+          <div className="space-y-0.5 flex flex-col gap-2">
+            <ChatbotSwitcher />
+            <h2 className="text-2xl font-bold tracking-tight">Settings</h2>
+            <p className="text-muted-foreground">
+              Manage your account settings and set e-mail preferences.
+            </p>
+          </div>
+          <UserNav />
         </div>
         <Separator className="my-6" />
         <div className="flex flex-col space-y-8 lg:flex-row lg:space-x-12 lg:space-y-0">

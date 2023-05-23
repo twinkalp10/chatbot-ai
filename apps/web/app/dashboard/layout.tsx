@@ -10,7 +10,6 @@ import { UserNav } from "./components/user-nav"
 
 const DashboardLayout = ({ children }: { children: ReactNode }) => {
   const pathname = useParams()
-  console.log(pathname)
   return (
     <div>
       <div className="flex flex-col">
