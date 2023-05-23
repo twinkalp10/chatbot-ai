@@ -14,10 +14,11 @@ model User {
   id        String   @id @unique @default(cuid())
   createdAt DateTime @default(now())
 
-  email    String    @unique
-  password String
-  name     String
-  ChatBot  ChatBot[]
+  email           String            @unique
+  password        String
+  name            String
+  ChatBot         ChatBot[]
+  ChatBotSettings ChatBotSettings[]
 }
 
 model ChatBot {
@@ -28,7 +29,36 @@ model ChatBot {
   url    String
   userId String
 
-  user User @relation(fields: [userId], references: [id])
+  user            User              @relation(fields: [userId], references: [id])
+  ChatBotSettings ChatBotSettings[]
 
   @@unique([id, userId])
+}
+
+enum CHAT_BUBBLE_ALIGNMENT {
+  LEFT
+  RIGHT
+}
+
+model ChatBotSettings {
+  id        String   @id @unique @default(cuid())
+  createdAt DateTime @default(now())
+
+  chatBotId String
+  userId    String
+
+  welcomeMessage      String
+  suggestionMessage   String
+  displayName         String
+  displayPicture      String
+  userColorMessage    String
+  chatBotColorMessage String
+  chatBackgroundColor String
+  chatBubbleColor     String
+  chatBubbleAlignment CHAT_BUBBLE_ALIGNMENT @default(RIGHT)
+
+  chatBot ChatBot @relation(fields: [chatBotId], references: [id])
+  user    User    @relation(fields: [userId], references: [id])
+
+  @@unique([chatBotId, userId])
 }

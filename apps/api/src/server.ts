@@ -7,6 +7,7 @@ import scrap from './routers/scrap.routers'
 import user from './routers/user.routers'
 import chatbot from './routers/chatbot.router'
 import { protect } from "./middleware/protect.middleware";
+import chatbotSettings from './routers/chatbot-settings.router'
 import { Req, Res } from "./type";
 
 const app = express();
@@ -30,7 +31,7 @@ app.use('/v1/scrap', scrap)
 
 app.use('/v1/user', protect, user)
 app.use('/v1/chatbot', protect, chatbot)
-
+app.use('/v1/chatbot-settings', protect, chatbotSettings)
 
 app.use((req: Req, res: Res) => {
   res.status(400).send({ message: 'invalid route' })
