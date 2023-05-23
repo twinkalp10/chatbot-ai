@@ -17,10 +17,10 @@ model User {
   email    String    @unique
   password String
   name     String
-  Website  Website[]
+  ChatBot  ChatBot[]
 }
 
-model Website {
+model ChatBot {
   id        String   @id @unique @default(cuid())
   createdAt DateTime @default(now())
 

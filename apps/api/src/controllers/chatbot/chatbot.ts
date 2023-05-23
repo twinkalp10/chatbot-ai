@@ -2,12 +2,12 @@ import db from "../../configs/db.config"
 import { Req, Res } from "../../type"
 
 export const getAllChatbot = async (req: Req, res: Res) => {
- const websites = await db.website.findMany({
+ const chatBots = await db.chatBot.findMany({
   where: {
    userId: req?.user?.id
   }
  })
- res.send({ data: websites, success: true })
+ res.send({ data: chatBots, success: true })
 }
 
 export const addChatbot = async (req: Req, res: Res) => {
@@ -15,17 +15,17 @@ export const addChatbot = async (req: Req, res: Res) => {
  const userId = req?.user?.id
  if (userId) {
   try {
-   const website = await db.website.create({
+   const chatBot = await db.chatBot.create({
     data: {
      name,
      url,
      userId
     }
    })
-   res.send({ data: website, success: true })
+   res.send({ data: chatBot, success: true })
   } catch (e) {
    console.log(e)
-   res.send({ message: "Unable to added the chatbot", success: false, error: e })
+   res.send({ message: "Unable to added the chatBot", success: false, error: e })
   }
  } else {
   return res.status(401).send({ message: "Unauthorized" })
@@ -37,10 +37,10 @@ export const updateChatbot = async (req: Req, res: Res) => {
  const { id } = req.params
  const userId = req?.user?.id
  if (!id) {
-  return res.status(401).send({ message: "Please send website Id", success: false })
+  return res.status(401).send({ message: "Please send chatBot Id", success: false })
  }
  if (userId) {
-  const website = await db.website.update({
+  const chatBot = await db.chatBot.update({
    where: {
     id_userId: {
      userId,
@@ -52,7 +52,7 @@ export const updateChatbot = async (req: Req, res: Res) => {
     url
    }
   })
-  res.send({ data: website, success: true })
+  res.send({ data: chatBot, success: true })
  } else {
   return res.status(401).send({ message: "Unauthorized" })
  }
@@ -62,7 +62,7 @@ export const deleteChatbot = async (req: Req, res: Res) => {
  const { id } = req.params
  const userId = req?.user?.id
  if (userId) {
-  const website = await db.website.delete({
+  const chatBot = await db.chatBot.delete({
    where: {
     id_userId: {
      userId,
@@ -70,7 +70,7 @@ export const deleteChatbot = async (req: Req, res: Res) => {
     }
    }
   })
-  res.send({ data: website, success: true })
+  res.send({ data: chatBot, success: true })
  } else {
   return res.status(401).send({ message: "Unauthorized" })
  }
