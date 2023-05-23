@@ -1,57 +1,69 @@
-"use client"
-
-import { ReactNode } from "react"
 import { Metadata } from "next"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { Bot, FileText, User } from "lucide-react"
+import Image from "next/image"
 
-import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 
-const Links = [
+import { SidebarNav } from "./components/sidebar-nav"
+
+export const metadata: Metadata = {
+  title: "Forms",
+  description: "Advanced form example using react-hook-form and Zod.",
+}
+
+const sidebarNavItems = [
   {
-    path: "/dashboard/settings/bot-config",
-    name: "Bot Config",
-    icon: Bot,
+    title: "Account",
+    href: "/dashboard/settings",
+  },
+
+  {
+    title: "Notifications",
+    href: "/dashboard/settings/notification",
   },
   {
-    path: "/dashboard/settings/billing",
-    name: "Billing",
-    icon: FileText,
-  },
-  {
-    path: "/dashboard/settings/profile",
-    name: "Profile",
-    icon: User,
+    title: "Billing",
+    href: "/dashboard/settings/billing",
   },
 ]
 
-const ContentLayout = ({ children }: { children: ReactNode }) => {
-  const pathname = usePathname()
+interface SettingsLayoutProps {
+  children: React.ReactNode
+}
+
+export default function SettingsLayout({ children }: SettingsLayoutProps) {
   return (
     <>
-      <div className="flex items-start ">
-        <div className="px-4 py-2">
-          <div className="space-y-1">
-            {Links.map((link) => (
-              <Link href={link.path}>
-                <Button
-                  variant={pathname === link.path ? "secondary" : "ghost"}
-                  size="sm"
-                  className="w-full justify-start"
-                >
-                  <link.icon className="mr-2 h-4 w-4" />
-                  {link.name}
-                </Button>
-              </Link>
-            ))}
-          </div>
+      <div className="md:hidden">
+        <Image
+          src="/examples/forms-light.png"
+          width={1280}
+          height={791}
+          alt="Forms"
+          className="block dark:hidden"
+        />
+        <Image
+          src="/examples/forms-dark.png"
+          width={1280}
+          height={791}
+          alt="Forms"
+          className="hidden dark:block"
+        />
+      </div>
+      <div className="hidden space-y-6 p-4 pb-12 md:block">
+        <div className="space-y-0.5">
+          <h2 className="text-2xl font-bold tracking-tight">Settings</h2>
+          <p className="text-muted-foreground">
+            Manage your account settings and set e-mail preferences.
+          </p>
         </div>
-        <Separator orientation="vertical" className="h-[calc(100vh-66px)]" />
-        <div className="grow p-6">{children}</div>
+        <Separator className="my-6" />
+        <div className="flex flex-col space-y-8 lg:flex-row lg:space-x-12 lg:space-y-0">
+          <aside className="-mx-4 lg:w-1/5">
+            <SidebarNav items={sidebarNavItems} />
+          </aside>
+          <div className="flex-1 lg:max-w-2xl">{children}</div>
+        </div>
       </div>
     </>
   )
 }
-export default ContentLayout
