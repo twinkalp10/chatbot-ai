@@ -31,7 +31,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/app/dashboard/settings/components/react-hook-form/accountForm"
+} from "@/app/settings/components/react-hook-form/accountForm"
 
 const languages = [
   { label: "English", value: "en" },
