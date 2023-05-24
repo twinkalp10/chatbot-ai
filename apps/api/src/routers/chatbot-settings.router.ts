@@ -6,7 +6,7 @@ import { getChatBotSettings, updateChatBotSettings } from '../controllers/chatbo
 
 const router = Router()
 
-router.get('/:id', getChatBotSettings)
-router.put('/:id', validate(validateChatbot), updateChatBotSettings)
+router.get('/interface/:id', getChatBotSettings)
+router.put('/interface/:id', validate(validateChatbot), updateChatBotSettings)
 
 export default router
