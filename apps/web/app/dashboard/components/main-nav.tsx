@@ -1,57 +1,56 @@
 "use client"
 
 import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { useParams, usePathname } from "next/navigation"
 
 import { cn } from "@/lib/utils"
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 
 const examples: { name: string; href: string; label?: string }[] = [
   {
-    name: "Dashboard",
-    href: "/dashboard/",
+    name: "Chatbot",
+    href: "/chatbot",
   },
   {
     name: "Content",
-    href: "/dashboard/content/files",
+    href: "/content/files",
   },
   {
-    name: "Chatbot",
-    href: "/dashboard/chatbot",
+    name: "Embeddings",
+    href: "/embeddings",
   },
   {
     name: "Settings",
-    href: "/dashboard/settings",
+    href: "/settings",
   },
 ]
 
 interface ExamplesNavProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 function MainNav({ className, ...props }: ExamplesNavProps) {
+  const params = useParams()
   const pathname = usePathname()
-
+  console.log("params", params, "pathname", pathname)
   return (
     <ScrollArea>
       <div className={cn("flex items-center", className)} {...props}>
-        {examples.map((example) => (
-          <Link
-            href={example.href}
-            key={example.href}
-            className={cn(
-              "flex items-center px-4",
-              pathname === example.href
-                ? "text-primary font-bold"
-                : "text-muted-foreground font-medium"
-            )}
-          >
-            {example.name}{" "}
-            {example.label && (
-              <span className="ml-2 rounded-md bg-[#adfa1d] px-1.5 py-0.5 text-xs font-medium leading-none text-[#000000] no-underline group-hover:no-underline">
-                {example.label}
-              </span>
-            )}
-          </Link>
-        ))}
+        {examples.map((example) => {
+          const href = `/dashboard/${params.chatbotId}${example.href}`
+          return (
+            <Link
+              href={href}
+              key={href}
+              className={cn(
+                "flex items-center px-4",
+                pathname === href
+                  ? "text-primary font-bold"
+                  : "text-muted-foreground font-medium"
+              )}
+            >
+              {example.name}{" "}
+            </Link>
+          )
+        })}
       </div>
       <ScrollBar orientation="horizontal" className="invisible" />
     </ScrollArea>

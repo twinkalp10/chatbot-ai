@@ -11,18 +11,15 @@ import { MainNav } from "./components/main-nav"
 import { UserNav } from "./components/user-nav"
 
 const DashboardLayout = ({ children }: { children: ReactNode }) => {
-  const pathname = useParams()
+  const params = useParams()
   return (
     <div>
-      <div className="flex flex-col">
+      <div
+        className="flex flex-col sticky w-full top-0 left-0"
+        style={{ backgroundColor: "rgba(0,0,0,.8)" }}
+      >
         <div className="border-b">
-          <div
-            className={
-              pathname
-                ? "h-26 flex items-stretch px-4 py-2"
-                : "flex h-16 items-center px-4 py-2"
-            }
-          >
+          <div className="py-4 flex items-stretch px-4">
             <div className="flex items-center justify-between w-full">
               <div className="flex gap-4">
                 <Link href="/dashboard" className="flex items-center gap-2">
@@ -34,15 +31,16 @@ const DashboardLayout = ({ children }: { children: ReactNode }) => {
                 </Link>
                 <ChatbotSwitcher />
               </div>
-
               <div>
                 <UserNav />
               </div>
             </div>
           </div>
-          <div>
-            <MainNav className="mx-2 my-2" />
-          </div>
+          {params?.chatbotId && (
+            <div>
+              <MainNav className="mx-2 my-2" />
+            </div>
+          )}
         </div>
       </div>
       <div className="p-4">{children}</div>

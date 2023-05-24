@@ -24,7 +24,7 @@ export function UserNav() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="w-10 rounded-full p-0">
-          <Avatar size={40} name={user?.email} variant="pixel" />
+          <Avatar size={30} name={user?.email} variant="pixel" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56" align="end" forceMount>
