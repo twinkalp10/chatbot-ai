@@ -1,4 +1,5 @@
 import db from "../../configs/db.config"
+import { chatBotDefaultSettings } from "../../default/chatbotSettings.default"
 import { Req, Res } from "../../type"
 
 export const getAllChatbot = async (req: Req, res: Res) => {
@@ -20,6 +21,29 @@ export const addChatbot = async (req: Req, res: Res) => {
      name,
      url,
      userId
+    }
+   })
+   const { welcomeMessage,
+    chatBackgroundColor,
+    suggestionMessage,
+    displayName,
+    displayPicture,
+    userColorMessage,
+    chatBotColorMessage,
+    chatBubbleColor } = chatBotDefaultSettings
+   await db.chatBotSettings.create({
+    data: {
+     userId,
+     chatBotId: chatBot.id,
+     welcomeMessage,
+     chatBackgroundColor,
+     suggestionMessage,
+     displayName,
+     displayPicture,
+     userColorMessage,
+     chatBotColorMessage,
+     chatBubbleColor,
+     chatBubbleAlignment: 'RIGHT',
     }
    })
    res.send({ data: chatBot, success: true })
