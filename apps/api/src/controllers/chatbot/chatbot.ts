@@ -23,14 +23,16 @@ export const addChatbot = async (req: Req, res: Res) => {
      userId
     }
    })
-   const { welcomeMessage,
+   const {
+    welcomeMessage,
     chatBackgroundColor,
     suggestionMessage,
     displayName,
     displayPicture,
     userColorMessage,
     chatBotColorMessage,
-    chatBubbleColor } = chatBotDefaultSettings
+    chatBubbleColor
+   } = chatBotDefaultSettings
    await db.chatBotSettings.create({
     data: {
      userId,

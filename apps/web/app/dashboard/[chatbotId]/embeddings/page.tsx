@@ -1,45 +1,43 @@
+"use client"
+
 import React from "react"
+import { useParams } from "next/navigation"
 
 const Page = () => {
+  const params = useParams() as { chatbotId: string }
   return (
-    <div className="flex items-center justify-center mt-20">
-      <div className="max-w-3xl bg-slate-600 p-10 border rounded">
-        <div className="flex flex-col gap-2">
-          <div>
-            <p className="text-xl">Embed on website</p>
-            <p>
-              To add the chatbot any where on your website, add this iframe to
-              your html code
-            </p>
-          </div>
-          <div className="border bg-slate-300 text-black p-2">
-            <pre>
-              <code>
-                &lt;iframe <br />
-                src="https://www.chatbase.co/chatbot-iframe/tgW1FCIe9T8saZ_J5Jlob"
-                <br />
-                width="100%" height="700" frameborder="0"&gt; <br />
-                &lt;iframe&gt;
-              </code>
-            </pre>
-          </div>
-          <div>
-            <p>
-              To add a chat bubble to the bottom right of your website add this
-              script tag to your html
-            </p>
-          </div>
-          <div className="border bg-slate-300 text-black p-2">
-            <pre>
-              <code>
-                &lt;iframe <br />
-                src="https://www.chatbase.co/chatbot-iframe/tgW1FCIe9T8saZ_J5Jlob"
-                <br />
-                width="100%" height="700" frameborder="0"&gt; <br />
-                &lt;iframe&gt;
-              </code>
-            </pre>
-          </div>
+    <div className="flex max-w-3xl rounded-xl p-4">
+      <div className="space-y-0.5">
+        <h2 className="text-2xl font-bold tracking-tight">Embed on website</h2>
+        <p className="text-muted-foreground pb-3">
+          To add the chatbot any where on your website, add this iframe to your
+          html code
+        </p>
+        <div className="bg-muted text-muted-foreground max-w-2xl overflow-y-auto rounded-xl py-2 pl-6 font-medium">
+          <p>{`<iframe`}</p>
+          <p>
+            {`src="https://chatbot-ai.xyz/chatbot-iframe/${params.chatbotId}"`}
+          </p>
+          <p>{`width="100%"`}</p>
+          <p>{`height="700"`}</p>
+          <p>{`frameborder="0"`}</p>
+          <p>{`></iframe>`}</p>
+        </div>
+        <p className="text-muted-foreground pb-3 pt-8">
+          To add a chat bubble to the bottom right of your website add this
+          script tag to your html
+        </p>
+        <div className="bg-muted text-muted-foreground max-w-2xl overflow-y-auto rounded-xl py-2 pl-6 font-medium">
+          <p>{`<script>`}</p>
+          <p>{`window.chatbaseConfig = {`}</p>
+          <p>{`chatbotId: "${params.chatbotId}",`}</p>
+          <p>{`}`}</p>
+          <p>{`</script>`}</p>
+          <p>{`<script`}</p>
+          <p>{`src="https://www.chatbase.co/embed.min.js"`}</p>
+          <p>{`id="${params.chatbotId}"`}</p>
+          <p>{`defer>`}</p>
+          <p>{`</script>`}</p>
         </div>
       </div>
     </div>

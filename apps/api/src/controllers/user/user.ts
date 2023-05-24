@@ -6,7 +6,6 @@ import { Req, Res } from "../../type"
 export const createNewUser = async (req: Req, res: Res) => {
  const { name, email, password } = req.body
  try {
-
   const user = await db.user.create({
    data: {
     name: name ?? '',

@@ -6,13 +6,14 @@ import { faqData } from "@/content/faq"
 import { motion } from "framer-motion"
 import { ArrowRight, MessageCircle } from "lucide-react"
 
+import useUser from "@/hooks/useUser"
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
-import { Button } from "@/components/ui/button"
+import { Button, buttonVariants } from "@/components/ui/button"
 
 import { SiteFooter } from "./component/footer"
 
@@ -24,7 +25,7 @@ let tabs = [
 
 export default function IndexPage() {
   let [activeTab, setActiveTab] = useState(tabs[0].path)
-
+  const { loginStatus } = useUser()
   return (
     <div className="">
       <nav className="m-auto flex max-w-7xl items-center justify-between p-4">
@@ -61,12 +62,23 @@ export default function IndexPage() {
             </button>
           ))}
         </div>
-        <div>
-          <Button variant="link">
-            Login <ArrowRight className="h-3 w-5" />
-          </Button>
-          <Button>Signup</Button>
-        </div>
+        {loginStatus === "logout" && (
+          <div>
+            <Link className={buttonVariants()} href="/auth/login">
+              Login <ArrowRight className="h-3 w-5" />
+            </Link>
+            <Link className={buttonVariants()} href="/auth/signup">
+              Signup
+            </Link>
+          </div>
+        )}
+        {loginStatus === "login" && (
+          <div>
+            <Link className={buttonVariants()} href="/dashboard">
+              Go to Dashboard
+            </Link>
+          </div>
+        )}
       </nav>
       <section className="container m-auto grid max-w-7xl items-center gap-6 pb-8 pt-6 md:py-10">
         <div className="flex flex-col items-center gap-2">

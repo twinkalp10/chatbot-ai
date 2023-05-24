@@ -19,6 +19,7 @@ model User {
   name            String
   ChatBot         ChatBot[]
   ChatBotSettings ChatBotSettings[]
+  Conversation    Conversation[]
 }
 
 model ChatBot {
@@ -61,4 +62,35 @@ model ChatBotSettings {
   user    User    @relation(fields: [userId], references: [id])
 
   @@unique([chatBotId, userId])
+}
+
+model Conversation {
+  id        String   @id @unique @default(cuid())
+  createdAt DateTime @default(now())
+  userId    String
+  chatBotId String
+
+  Message Message[]
+  User    User      @relation(fields: [userId], references: [id])
+
+  @@unique([id, userId])
+  @@unique([id, chatBotId])
+}
+
+enum MESSAGE_ROLE {
+  USER
+  CHATBOT
+}
+
+model Message {
+  id        String   @id @unique @default(cuid())
+  createdAt DateTime @default(now())
+
+  conversationId String
+  message        String
+  role           String
+
+  conversation Conversation @relation(fields: [conversationId], references: [id])
+
+  @@unique([id, conversationId])
 }

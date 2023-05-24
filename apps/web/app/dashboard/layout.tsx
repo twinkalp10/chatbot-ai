@@ -14,13 +14,10 @@ const DashboardLayout = ({ children }: { children: ReactNode }) => {
   const params = useParams()
   return (
     <div>
-      <div
-        className="flex flex-col sticky w-full top-0 left-0"
-        style={{ backgroundColor: "rgba(0,0,0,.8)" }}
-      >
+      <div className="bg-background sticky left-0 top-0 flex w-full flex-col">
         <div className="border-b">
-          <div className="py-4 flex items-stretch px-4">
-            <div className="flex items-center justify-between w-full">
+          <div className="flex items-stretch p-4">
+            <div className="flex w-full items-center justify-between">
               <div className="flex gap-4">
                 <Link href="/dashboard" className="flex items-center gap-2">
                   <MessageCircle className="h-6 w-6" />
@@ -38,7 +35,7 @@ const DashboardLayout = ({ children }: { children: ReactNode }) => {
           </div>
           {params?.chatbotId && (
             <div>
-              <MainNav className="mx-2 my-2" />
+              <MainNav className="m-2" />
             </div>
           )}
         </div>
