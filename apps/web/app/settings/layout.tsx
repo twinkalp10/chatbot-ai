@@ -1,5 +1,7 @@
 import { Metadata } from "next"
 import Image from "next/image"
+import Link from "next/link"
+import { MessageCircle } from "lucide-react"
 
 import { Separator } from "@/components/ui/separator"
 
@@ -54,8 +56,19 @@ export default function SettingsLayout({ children }: SettingsLayoutProps) {
       <div className="hidden space-y-6 p-4 pb-12 md:block">
         <div className="flex flex-col gap-3 sticky w-full top-0 left-0">
           <div className="space-y-0.5 flex justify-between w-full">
-            <ChatbotSwitcher />
-            <UserNav />
+            <div className="flex gap-4">
+              <Link href="/dashboard" className="flex items-center gap-2">
+                <MessageCircle className="h-6 w-6" />
+
+                <p className="font-bold leading-tight tracking-tighter">
+                  Chatbot AI
+                </p>
+              </Link>
+              <ChatbotSwitcher />
+            </div>
+            <div>
+              <UserNav />
+            </div>
           </div>
           <div>
             <h2 className="text-2xl font-bold tracking-tight">Settings</h2>
