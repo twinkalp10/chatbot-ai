@@ -20,6 +20,7 @@ model User {
   ChatBot         ChatBot[]
   ChatBotSettings ChatBotSettings[]
   Conversation    Conversation[]
+  ChatBotTextData ChatBotTextData[]
 }
 
 model ChatBot {
@@ -32,7 +33,24 @@ model ChatBot {
 
   user            User              @relation(fields: [userId], references: [id])
   ChatBotSettings ChatBotSettings[]
+  ChatBotTextData ChatBotTextData[]
 
+  @@unique([id, userId])
+}
+
+model ChatBotTextData {
+  id        String   @id @unique @default(cuid())
+  createdAt DateTime @default(now())
+
+  chatBotId String
+  userId    String
+  title     String
+  text      String
+
+  chatBot ChatBot @relation(fields: [chatBotId], references: [id])
+  user    User    @relation(fields: [userId], references: [id])
+
+  @@unique([id, chatBotId])
   @@unique([id, userId])
 }
 
