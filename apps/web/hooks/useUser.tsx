@@ -1,4 +1,4 @@
-import { getAuthToken } from "@/utils/authToken"
+import { deleteToken, getAuthToken } from "@/utils/authToken"
 import { create } from "zustand"
 
 import { User } from "@/types/user"
@@ -9,6 +9,7 @@ interface IUseUser {
   loginStatus: "loading" | "login" | "logout"
   setUserAuth: (user: User) => void
   fetchUser: () => void
+  logout: () => void
 }
 
 const useUser = create<IUseUser>((set) => ({
@@ -19,6 +20,10 @@ const useUser = create<IUseUser>((set) => ({
   },
   setUserAuth: (user: User) => {
     set({ user, loginStatus: `login` })
+  },
+  logout: () => {
+    deleteToken()
+    set({ loginStatus: `logout` })
   },
   fetchUser: async () => {
     const token = getAuthToken()

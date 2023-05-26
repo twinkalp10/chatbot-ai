@@ -13,3 +13,7 @@ export const getAuthToken = (): string | null => {
 export const setAuthToken = (token: string) => {
   localStorage.setItem('@chatbot-ai', token);
 }
+
+export const deleteToken = () => {
+  localStorage.removeItem('@chatbot-ai');
+}

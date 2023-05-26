@@ -18,7 +18,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 
 export function UserNav() {
-  const { user } = useUser()
+  const { user, logout } = useUser()
   const router = useRouter()
   return (
     <DropdownMenu>
@@ -61,7 +61,7 @@ export function UserNav() {
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
+        <DropdownMenuItem onClick={logout}>
           <LogOut className="mr-2 h-4 w-4" />
           <span>Log out</span>
           <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
