@@ -3,14 +3,14 @@
 
 generator client {
   provider        = "prisma-client-js"
-  previewFeatures = ["jsonProtocol", "postgresqlExtensions"]
+  previewFeatures = ["postgresqlExtensions"]
 }
 
 datasource db {
   provider          = "postgresql"
-  url               = env("DATABASE_URL") // uses connection pooling
-  directUrl         = env("SHADOW_DATABASE_URL") // uses a direct connection
-  shadowDatabaseUrl = env("SHADOW_DATABASE_URL") // used for migrations
+  url               = env("DATABASE_URL")
+  directUrl         = env("DATABASE_URL")
+  shadowDatabaseUrl = env("DATABASE_URL")
   extensions        = [vector]
 }
 

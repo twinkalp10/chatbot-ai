@@ -16,7 +16,7 @@ export const createNewUser = async (req: Req, res: Res) => {
   const token = createJWT(user)
   res.send({ token, success: true })
  } catch (err) {
-  res.status(401).send({ message: 'User already exist', success: false })
+  res.status(401).send({ message: 'User already exist', success: false, })
  }
 }
 
