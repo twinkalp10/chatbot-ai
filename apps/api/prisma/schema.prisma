@@ -2,12 +2,16 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["jsonProtocol", "postgresqlExtensions"]
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider          = "postgresql"
+  url               = env("DATABASE_URL") // uses connection pooling
+  directUrl         = env("SHADOW_DATABASE_URL") // uses a direct connection
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL") // used for migrations
+  extensions        = [vector]
 }
 
 model User {
@@ -46,6 +50,7 @@ model ChatBotTextData {
   userId    String
   title     String
   text      String
+  embading  Unsupported("vector(1536)")
 
   chatBot ChatBot @relation(fields: [chatBotId], references: [id])
   user    User    @relation(fields: [userId], references: [id])
