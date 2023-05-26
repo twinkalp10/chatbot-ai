@@ -45,6 +45,40 @@ export const loginUser = async (req: Req, res: Res) => {
  }
 }
 
+export const updateUserName = async (req: Req, res: Res) => {
+ const { name } = req.body
+ const user = req?.user;
+ if (user) {
+  const updatedUser = await db.user.update({
+   where: { id: user.id },
+   data: {
+    name,
+   }
+  })
+  return res.send({ data: updatedUser })
+ }
+ return res.status(401).send({ message: 'Invalid credentials', success: false })
+}
+
+export const updateUserPassword = async (req: Req, res: Res) => {
+ const { password, newPassword } = req.body
+ const user = req?.user;
+ if (user) {
+  const valid = comparePassword(password, user.password)
+  if (!valid) {
+   return res.status(401).send({ message: 'Invalid credentials', success: false })
+  }
+  const updatedUser = await db.user.update({
+   where: { id: user.id },
+   data: {
+    password: hashPassword(newPassword),
+   }
+  })
+  return res.send({ data: updatedUser })
+ }
+ return res.status(401).send({ message: 'Invalid credentials', success: false })
+}
+
 export const getUser = async (req: Req, res: Res) => {
  const user = req?.user;
  if (user) {

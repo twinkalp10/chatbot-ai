@@ -88,12 +88,10 @@ export const deleteChatbot = async (req: Req, res: Res) => {
  const { id } = req.params
  const userId = req?.user?.id
  if (userId) {
-  const chatBot = await db.chatBot.delete({
+  const chatBot = await db.chatBot.deleteMany({
    where: {
-    id_userId: {
-     userId,
-     id
-    }
+    userId,
+    id
    }
   })
   res.send({ data: chatBot, success: true })
