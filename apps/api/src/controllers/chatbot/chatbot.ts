@@ -3,12 +3,18 @@ import { chatBotDefaultSettings } from "../../default/chatbotSettings.default"
 import { Req, Res } from "../../type"
 
 export const getAllChatbot = async (req: Req, res: Res) => {
- const chatBots = await db.chatBot.findMany({
-  where: {
-   userId: req?.user?.id
-  }
- })
- res.send({ data: chatBots, success: true })
+ try {
+
+  const chatBots = await db.chatBot.findMany({
+   where: {
+    userId: req?.user?.id
+   }
+  })
+  res.send({ data: chatBots, success: true })
+ } catch (e) {
+  console.log(e)
+  res.send({ message: "Unable to fetch chatBots", success: false, error: e })
+ }
 }
 
 export const addChatbot = async (req: Req, res: Res) => {
