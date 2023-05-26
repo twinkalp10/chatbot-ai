@@ -1,11 +1,12 @@
 "use client"
 
-import React, { ChangeEvent, useEffect, useState } from "react"
+import React from "react"
+import { chatbotInterfaceSchema } from "@/schema/chatbotInterface"
+import { yupResolver } from "@hookform/resolvers/yup"
 import { useForm } from "react-hook-form"
 import useSWR from "swr"
 
-import { ChatbotInterface } from "@/types/chatbotInterface"
-import { fetcher } from "@/lib/axios"
+import { FormValues } from "@/types/chatbotInterface"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -18,130 +19,127 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { Switch } from "@/components/ui/switch"
 import { Textarea } from "@/components/ui/textarea"
 
-const ChatbotInterfaceForm = () => {
-  const { register, setValue } = useForm()
-  const {
-    data: defaultValues,
-    error,
-    isLoading,
-  } = useSWR<ChatbotInterface>("/chatbot-settings", fetcher)
+const ChatbotInterfaceForm = ({ data }: any) => {
+  const { register, handleSubmit, formState } = useForm<FormValues>({
+    defaultValues: data?.[0] || {},
+    resolver: yupResolver(chatbotInterfaceSchema),
+  })
 
-  console.log(defaultValues)
+  const { errors } = formState
 
-  const [selectedFile, setSelectedFile] = useState<File | null>(null)
-  const [userSelectedColor, setUserSelectedColor] = useState("#F9FAFB")
-  const [chatbotSelectedColor, setChatbotSelectedColor] = useState("#000000")
-  const [bubbleColor, setBubbleColor] = useState("#EA580C")
-
-  const handleSelectFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0]
-    setSelectedFile(file || null)
-  }
-
-  const handleUserColorChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const userColor = event.target.value
-    setUserSelectedColor(userColor)
-  }
-
-  const handleChatbotColorChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const chatbotColor = event.target.value
-    setChatbotSelectedColor(chatbotColor)
-  }
-
-  const bubbleColorChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const bubbleColor = event.target.value
-    setBubbleColor(bubbleColor)
+  const onsubmit = (formData: FormValues) => {
+    console.log("form submitted", formData)
   }
 
   return (
     <div>
-      <form>
-        <div className="flex justify-end">
-          <Button>Reset</Button>
-        </div>
-        <div className="flex flex-col gap-10">
+      <form onSubmit={handleSubmit(onsubmit)} noValidate>
+        <div className="flex flex-col gap-10 mt-8">
           <div className="grid w-full gap-2">
             <Label htmlFor="message">Initial messages</Label>
-            <Textarea
-              placeholder="Type your message here."
-              id="message"
-              value={defaultValues?.welcomeMessage}
-              {...register("welcomeMessage")}
-            />
+            <Textarea id="message" {...register("welcomeMessage")} />
+            {errors.welcomeMessage?.message && (
+              <Label variant="error">
+                {errors.welcomeMessage.message.toString()}
+              </Label>
+            )}
           </div>
           <div className="grid w-full gap-2">
             <Label htmlFor="message">Suggested Messages</Label>
-            <Textarea
-              placeholder="Type your message here."
-              id="message"
-              {...register("suggestionMessage")}
-            />
+            <Textarea id="message" {...register("suggestionMessage")} />
+            {errors.suggestionMessage?.message && (
+              <Label variant="error">
+                {errors.suggestionMessage.message.toString()}
+              </Label>
+            )}
           </div>
-          <div className="flex items-center space-x-2">
-            <Switch id="dark-mode" />
-            <Label htmlFor="dark-mode">Dark Mode</Label>
-          </div>
-          <div className="grid w-full gap-2">
-            <Label htmlFor="message">Update chatbot profile picture</Label>
-            <Input
-              type="file"
-              placeholder="select file"
-              accept="image/*"
-              onChange={handleSelectFileChange}
-            />
-            {selectedFile && <p>selected file: {selectedFile.name} </p>}
-          </div>
-          <div className="grid w-full max-w-sm items-center gap-1.5">
+
+          <div className="grid w-full items-center gap-1.5">
             <Label htmlFor="display-name">Display Name</Label>
             <Input
               type="text"
               id="display-name"
-              placeholder=""
               className="w-full"
+              {...register("displayName")}
             />
-          </div>
-          <div>
-            <Label htmlFor="message">Select user message color</Label>
-            <Input
-              type="color"
-              placeholder="select color"
-              value={userSelectedColor}
-              onChange={handleUserColorChange}
-            />
-            {userSelectedColor && (
-              <p>User message color: {userSelectedColor} </p>
+            {errors.displayName?.message && (
+              <Label variant="error">
+                {errors.displayName.message.toString()}
+              </Label>
             )}
           </div>
           <div>
-            <Label htmlFor="message">Select chatbot message color</Label>
+            <Label htmlFor="chatBackgroundColor">
+              Select chatbot background color
+            </Label>
             <Input
               type="color"
-              placeholder="select color"
-              value={chatbotSelectedColor}
-              onChange={handleChatbotColorChange}
+              id="chatBackgroundColor"
+              {...register("chatBackgroundColor")}
             />
-            {chatbotSelectedColor && (
-              <p>Chatbot message color: {chatbotSelectedColor} </p>
+
+            <p>Chatbot background color: {} </p>
+            {errors.chatBackgroundColor?.message && (
+              <Label variant="error">
+                {errors.chatBackgroundColor.message.toString()}
+              </Label>
             )}
           </div>
           <div>
-            <Label htmlFor="message">Select chatbot bubble color</Label>
+            <Label htmlFor="userColorMessage">Select user message color</Label>
             <Input
               type="color"
-              placeholder="select color"
-              value={bubbleColor}
-              onChange={bubbleColorChange}
+              id="userColorMessage"
+              {...register("userColorMessage")}
             />
-            {bubbleColor && <p>Chatbot bubble color: {bubbleColor} </p>}
+
+            <p>User message color: {} </p>
+            {errors.userColorMessage?.message && (
+              <Label variant="error">
+                {errors.userColorMessage.message.toString()}
+              </Label>
+            )}
           </div>
           <div>
-            <Label htmlFor="message">Align chat bubble button</Label>
-            <Select>
+            <Label htmlFor="chatBotColorMessage">
+              Select chatbot message color
+            </Label>
+            <Input
+              type="color"
+              id="chatBotColorMessage"
+              {...register("chatBotColorMessage")}
+            />
+
+            <p>Chatbot message color: {} </p>
+            {errors.chatBotColorMessage?.message && (
+              <Label variant="error">
+                {errors.chatBotColorMessage.message.toString()}
+              </Label>
+            )}
+          </div>
+          <div>
+            <Label htmlFor="chatBubbleColor">Select chatbot bubble color</Label>
+            <Input
+              type="color"
+              id="chatBubbleColor"
+              {...register("chatBubbleColor")}
+            />
+            <p>Chatbot bubble color: {} </p>
+            {errors.chatBubbleColor?.message && (
+              <Label variant="error">
+                {errors.chatBubbleColor.message.toString()}
+              </Label>
+            )}
+          </div>
+          <div>
+            <Label htmlFor="chatBubbleAlignment">
+              Align chat bubble button
+            </Label>
+            <Select {...register("chatBubbleAlignment")}>
               <SelectTrigger className="w-full">
-                <SelectValue placeholder="right" />
+                <SelectValue />
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
@@ -151,7 +149,13 @@ const ChatbotInterfaceForm = () => {
                 </SelectGroup>
               </SelectContent>
             </Select>
+            {errors.chatBubbleAlignment?.message && (
+              <Label variant="error">
+                {errors.chatBubbleAlignment.message.toString()}
+              </Label>
+            )}
           </div>
+          <Button type="submit">Save Changes</Button>
         </div>
       </form>
     </div>

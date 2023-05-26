@@ -1,18 +1,12 @@
 "use client"
 
 import { ReactNode } from "react"
-import { Metadata } from "next"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { File, Globe, Pencil } from "lucide-react"
 
-import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 
 import ChatInterface from "./components/chatInterface"
 
 const ContentLayout = ({ children }: { children: ReactNode }) => {
-  const pathname = usePathname()
   return (
     <>
       <div className="flex justify-start">

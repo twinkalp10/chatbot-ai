@@ -1,13 +1,15 @@
 
-export interface ChatbotInterface {
+export type FormValues = {
   welcomeMessage: string
   chatBackgroundColor: string
   suggestionMessage: string
   displayName: string
-  displayPicture: string
   userColorMessage: string
   chatBotColorMessage: string
   chatBubbleColor: string
   chatBubbleAlignment: string
-  [key: string]: string;
+}
+
+export interface IchatbotInterfaceForm {
+  data: FormValues
 }
