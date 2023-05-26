@@ -30,7 +30,6 @@ interface ExamplesNavProps extends React.HTMLAttributes<HTMLDivElement> {}
 function MainNav({ className, ...props }: ExamplesNavProps) {
   const params = useParams()
   const pathname = usePathname()
-  console.log("params", params, "pathname", pathname)
   return (
     <ScrollArea>
       <div className={cn("flex items-center", className)} {...props}>

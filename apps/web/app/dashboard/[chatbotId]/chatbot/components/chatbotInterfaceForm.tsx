@@ -1,12 +1,15 @@
 "use client"
 
-import React from "react"
+import React, { useState } from "react"
+import { useParams } from "next/navigation"
 import { chatbotInterfaceSchema } from "@/schema/chatbotInterface"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { useForm } from "react-hook-form"
-import useSWR from "swr"
+import useSWR, { mutate } from "swr"
 
-import { FormValues } from "@/types/chatbotInterface"
+import { FormValues, FormValuesWithID } from "@/types/chatbotInterface"
+import { ApiError } from "@/types/error"
+import axiosInstance from "@/lib/axios"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -21,20 +24,35 @@ import {
 } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
 
+import ChatbotUI from "./chatbotUI"
+
 const ChatbotInterfaceForm = ({ data }: any) => {
-  const { register, handleSubmit, formState } = useForm<FormValues>({
+  const { register, handleSubmit, formState, watch } = useForm<FormValues>({
     defaultValues: data?.[0] || {},
     resolver: yupResolver(chatbotInterfaceSchema),
   })
 
   const { errors } = formState
 
-  const onsubmit = (formData: FormValues) => {
-    console.log("form submitted", formData)
+  const params = useParams() as { chatbotId: string }
+
+  const onsubmit = async (formData: FormValues) => {
+    try {
+      const response = await axiosInstance.put(
+        `/chatbot-settings/interface/${params.chatbotId}`,
+        formData
+      )
+      mutate("/chatbot-settings/interface")
+      console.log("data submitted", formData)
+    } catch (error) {
+      const serverError = error as ApiError
+    }
   }
 
+  const watchAllFields = watch()
+
   return (
-    <div>
+    <div className="grid w-full grid-cols-2">
       <form onSubmit={handleSubmit(onsubmit)} noValidate>
         <div className="flex flex-col gap-10 mt-8">
           <div className="grid w-full gap-2">
@@ -144,8 +162,8 @@ const ChatbotInterfaceForm = ({ data }: any) => {
               <SelectContent>
                 <SelectGroup>
                   <SelectLabel>Position</SelectLabel>
-                  <SelectItem value="apple">Left</SelectItem>
-                  <SelectItem value="banana">Right</SelectItem>
+                  <SelectItem value="LEFT">Left</SelectItem>
+                  <SelectItem value="RIGHT">Right</SelectItem>
                 </SelectGroup>
               </SelectContent>
             </Select>
@@ -158,6 +176,9 @@ const ChatbotInterfaceForm = ({ data }: any) => {
           <Button type="submit">Save Changes</Button>
         </div>
       </form>
+      <div className="justify-self-center">
+        <ChatbotUI watchAllFields={watchAllFields} />
+      </div>
     </div>
   )
 }

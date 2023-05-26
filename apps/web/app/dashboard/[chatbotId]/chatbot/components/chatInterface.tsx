@@ -24,7 +24,7 @@ const ChatInterface = () => {
 
   return (
     <div>
-      <div className="mb-4">
+      <div>
         <h2>Chat Interface</h2>
         <p>applies when embedded on a website</p>
         <ChatbotInterfaceForm data={data} />
