@@ -81,7 +81,14 @@ export const updateUserPassword = async (req: Req, res: Res) => {
 
 export const getUser = async (req: Req, res: Res) => {
  const user = req?.user;
- if (user) {
+ if (user?.id) {
+  const userExist = await db.user.findUnique({
+   where: { id: user.id }
+  })
+  if (!userExist) {
+   return res.status(401).send({ message: 'Invalid credentials', success: false })
+  }
+
   return res.send({ data: user })
  }
  return res.status(401).send({ message: 'Invalid credentials', success: false })

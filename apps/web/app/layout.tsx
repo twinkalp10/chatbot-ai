@@ -45,13 +45,13 @@ export default function RootLayout({ children }: RootLayoutProps) {
         >
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <div className="h-full w-full">
-              <AuthWrapper>
-                <SWRConfigHOC>
-                  <div className="relative flex min-h-screen flex-col">
-                    <div className="flex-1">{children}</div>
-                  </div>
-                </SWRConfigHOC>
-              </AuthWrapper>
+              <div className="relative flex min-h-screen flex-col">
+                <div className="flex-1">
+                  <AuthWrapper>
+                    <SWRConfigHOC>{children}</SWRConfigHOC>
+                  </AuthWrapper>
+                </div>
+              </div>
               <TailwindIndicator />
             </div>
           </ThemeProvider>
