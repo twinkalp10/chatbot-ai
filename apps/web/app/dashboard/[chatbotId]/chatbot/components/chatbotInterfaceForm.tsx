@@ -4,6 +4,7 @@ import React, { useState } from "react"
 import { useParams } from "next/navigation"
 import { chatbotInterfaceSchema } from "@/schema/chatbotInterface"
 import { yupResolver } from "@hookform/resolvers/yup"
+import { Loader2 } from "lucide-react"
 import { useForm } from "react-hook-form"
 import useSWR, { mutate } from "swr"
 
@@ -31,20 +32,24 @@ const ChatbotInterfaceForm = ({ data }: any) => {
     defaultValues: data?.[0] || {},
     resolver: yupResolver(chatbotInterfaceSchema),
   })
+  const [isLoading, setIsLoading] = React.useState(false)
 
   const { errors } = formState
 
   const params = useParams() as { chatbotId: string }
 
   const onsubmit = async (formData: FormValues) => {
+    setIsLoading(true)
     try {
       const response = await axiosInstance.put(
         `/chatbot-settings/interface/${params.chatbotId}`,
         formData
       )
       mutate("/chatbot-settings/interface")
+      setIsLoading(false)
       console.log("data submitted", formData)
     } catch (error) {
+      setIsLoading(false)
       const serverError = error as ApiError
     }
   }
@@ -80,6 +85,7 @@ const ChatbotInterfaceForm = ({ data }: any) => {
               type="text"
               id="display-name"
               className="w-full"
+              disabled={isLoading}
               {...register("displayName")}
             />
             {errors.displayName?.message && (
@@ -95,6 +101,7 @@ const ChatbotInterfaceForm = ({ data }: any) => {
             <Input
               type="color"
               id="chatBackgroundColor"
+              disabled={isLoading}
               {...register("chatBackgroundColor")}
             />
 
@@ -110,6 +117,7 @@ const ChatbotInterfaceForm = ({ data }: any) => {
             <Input
               type="color"
               id="userColorMessage"
+              disabled={isLoading}
               {...register("userColorMessage")}
             />
 
@@ -127,6 +135,7 @@ const ChatbotInterfaceForm = ({ data }: any) => {
             <Input
               type="color"
               id="chatBotColorMessage"
+              disabled={isLoading}
               {...register("chatBotColorMessage")}
             />
 
@@ -142,6 +151,7 @@ const ChatbotInterfaceForm = ({ data }: any) => {
             <Input
               type="color"
               id="chatBubbleColor"
+              disabled={isLoading}
               {...register("chatBubbleColor")}
             />
             <p>Chatbot bubble color: {} </p>
@@ -155,7 +165,7 @@ const ChatbotInterfaceForm = ({ data }: any) => {
             <Label htmlFor="chatBubbleAlignment">
               Align chat bubble button
             </Label>
-            <Select {...register("chatBubbleAlignment")}>
+            <Select disabled={isLoading} {...register("chatBubbleAlignment")}>
               <SelectTrigger className="w-full">
                 <SelectValue />
               </SelectTrigger>
@@ -173,7 +183,10 @@ const ChatbotInterfaceForm = ({ data }: any) => {
               </Label>
             )}
           </div>
-          <Button type="submit">Save Changes</Button>
+          <Button type="submit" disabled={isLoading}>
+            {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+            Save Changes
+          </Button>
         </div>
       </form>
       <div className="justify-self-center">

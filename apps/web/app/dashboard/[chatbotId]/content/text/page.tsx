@@ -27,7 +27,6 @@ const Page = () => {
 
   const onSubmit = async (textData: chatbotTextValues) => {
     setIsLoading(true)
-    console.log("before api")
     try {
       const response = await axiosInstance.post("/chatbot-data/text", {
         ...textData,
