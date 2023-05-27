@@ -50,7 +50,7 @@ model ChatBotTextData {
   userId    String
   title     String
   text      String
-  embading  Unsupported("vector(1536)")
+  embading  Unsupported("vector(1536)")?
 
   chatBot ChatBot @relation(fields: [chatBotId], references: [id])
   user    User    @relation(fields: [userId], references: [id])

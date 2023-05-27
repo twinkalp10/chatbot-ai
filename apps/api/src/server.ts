@@ -17,7 +17,9 @@ app
   .use(morgan("dev"))
   .use(urlencoded({ extended: true }))
   .use(json())
-  .use(cors())
+  .use(cors({
+    origin: '*',
+  }))
 
 app.get('/', (req: Req, res: Res) => {
   res.send('welcome to chatbot-ai api')
