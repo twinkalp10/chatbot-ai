@@ -3,7 +3,7 @@
 import { ReactNode } from "react"
 import { Metadata } from "next"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { useParams, usePathname } from "next/navigation"
 import { File, Globe, Pencil } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
@@ -11,15 +11,16 @@ import { Separator } from "@/components/ui/separator"
 
 const ContentLayout = ({ children }: { children: ReactNode }) => {
   const pathname = usePathname()
+  const param = useParams()
   return (
     <>
       <div className="flex items-start ">
         <div className="px-4 py-2">
           <div className="space-y-1">
-            <Link href="/dashboard/content/files">
+            {/* <Link href={`/dashboard/${param.chatbotId}/content/files`}>
               <Button
                 variant={
-                  pathname === "/dashboard/content/files"
+                  pathname === `/dashboard/${param.chatbotId}/content/files`
                     ? "secondary"
                     : "ghost"
                 }
@@ -29,11 +30,13 @@ const ContentLayout = ({ children }: { children: ReactNode }) => {
                 <File className="mr-2 h-4 w-4" />
                 Files
               </Button>
-            </Link>
-            <Link href="/dashboard/content/text">
+            </Link> */}
+            <Link href={`/dashboard/${param.chatbotId}/content/text`}>
               <Button
                 variant={
-                  pathname === "/dashboard/content/text" ? "secondary" : "ghost"
+                  pathname === `/dashboard/${param.chatbotId}/content/text`
+                    ? "secondary"
+                    : "ghost"
                 }
                 size="sm"
                 className="w-full justify-start"
@@ -42,10 +45,10 @@ const ContentLayout = ({ children }: { children: ReactNode }) => {
                 Text
               </Button>
             </Link>
-            <Link href="/dashboard/content/website">
+            {/* <Link href={`/dashboard/${param.chatbotId}/content/website`}>
               <Button
                 variant={
-                  pathname === "/dashboard/content/website"
+                  pathname === `/dashboard/${param.chatbotId}/content/website`
                     ? "secondary"
                     : "ghost"
                 }
@@ -55,7 +58,7 @@ const ContentLayout = ({ children }: { children: ReactNode }) => {
                 <Globe className="mr-2 h-4 w-4" />
                 Website
               </Button>
-            </Link>
+            </Link> */}
           </div>
         </div>
         <Separator orientation="vertical" className="h-[calc(100vh-66px)]" />

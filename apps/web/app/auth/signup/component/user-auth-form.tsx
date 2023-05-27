@@ -95,7 +95,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
           </div>
           <Button type="submit" disabled={isLoading} className="mt-2">
             {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-            Sign In with Email
+            Sign Up with Email
           </Button>
         </div>
       </form>
