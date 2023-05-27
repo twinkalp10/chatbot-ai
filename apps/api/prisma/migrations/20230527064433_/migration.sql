@@ -13,7 +13,13 @@ CREATE TABLE "User" (
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
-    "name" TEXT NOT NULL,
+    "name" TEXT,
+    "isEmailVerified" BOOLEAN NOT NULL DEFAULT false,
+    "isSubscriptionStarted" BOOLEAN NOT NULL DEFAULT false,
+    "isBlocked" BOOLEAN NOT NULL DEFAULT false,
+    "isDeleted" BOOLEAN NOT NULL DEFAULT false,
+    "stripeCustomerId" TEXT,
+    "stripeSubscriptionId" TEXT,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
@@ -37,7 +43,7 @@ CREATE TABLE "ChatBotTextData" (
     "userId" TEXT NOT NULL,
     "title" TEXT NOT NULL,
     "text" TEXT NOT NULL,
-    "embading" vector(1536) NOT NULL,
+    "embading" vector(1536),
 
     CONSTRAINT "ChatBotTextData_pkey" PRIMARY KEY ("id")
 );

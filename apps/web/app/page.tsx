@@ -63,8 +63,11 @@ export default function IndexPage() {
           ))}
         </div>
         {loginStatus === "logout" && (
-          <div>
-            <Link className={buttonVariants()} href="/auth/login">
+          <div className="flex items-center justify-center gap-2">
+            <Link
+              className={buttonVariants({ variant: "ghost" })}
+              href="/auth/login"
+            >
               Login <ArrowRight className="h-3 w-5" />
             </Link>
             <Link className={buttonVariants()} href="/auth/signup">
