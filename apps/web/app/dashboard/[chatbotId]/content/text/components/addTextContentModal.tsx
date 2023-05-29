@@ -31,9 +31,10 @@ type TextContentModalProps = {
 const AddTextContentModal = ({ onClose }: TextContentModalProps) => {
   const param = useParams()
   const [isLoading, setIsLoading] = React.useState(false)
-  const { register, handleSubmit, formState } = useForm<chatbotTextValues>({
-    resolver: yupResolver(chatbotTextDataSchema),
-  })
+  const { register, handleSubmit, formState, reset } =
+    useForm<chatbotTextValues>({
+      resolver: yupResolver(chatbotTextDataSchema),
+    })
 
   const { errors } = formState
 
@@ -47,8 +48,9 @@ const AddTextContentModal = ({ onClose }: TextContentModalProps) => {
       if (response.data.success) {
         console.log("form submitted", textData)
         setIsLoading(false)
-        mutate("/chatbot-data/text")
+        mutate("/chatbot-data/text", (oldData) => [...oldData, response.data])
         onClose()
+        reset()
       } else {
         toast({
           title: "Unable to add Text",

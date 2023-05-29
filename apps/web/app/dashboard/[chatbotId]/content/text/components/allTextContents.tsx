@@ -48,18 +48,18 @@ export const TextList = ({ data }: IAllTextContents) => {
     )
   }
   return (
-    <div className="flex flex-col gap-3">
+    <div className="grid grid-cols-1 gap-3">
       {data.map((item, index) => (
         <div key={index}>
-          <Card className="hover:border-white cursor-pointer relative">
+          <Card className="hover:border-white cursor-pointer relative whitespace-normal">
             <TextContentOperations data={item} />
             <CardHeader className="flex flex-col items-start justify-between space-y-0">
-              <div>
+              <div key={item.id}>
                 <CardTitle className="text-2xl font-bold ">
-                  {item.title}{" "}
+                  {item.title}
                 </CardTitle>
-                <p className="text-sm font-normal text-slate-400">
-                  {item.text}{" "}
+                <p className="text-sm font-normal whitespace-normal break-words text-slate-400">
+                  {item.text}
                 </p>
               </div>
             </CardHeader>

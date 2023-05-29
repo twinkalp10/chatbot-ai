@@ -1,5 +1,5 @@
 import React from "react"
-import { useRouter } from "next/navigation"
+import { useParams, useRouter } from "next/navigation"
 import { chatbotTextDataSchema } from "@/schema/chatbotTextData"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { Loader2, Recycle, Trash } from "lucide-react"
@@ -41,6 +41,7 @@ const TextContentOperations = ({ data }: ITextContentOperations) => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<chatbotTextValues>({
     resolver: yupResolver(chatbotTextDataSchema),
     defaultValues: {
@@ -52,6 +53,7 @@ const TextContentOperations = ({ data }: ITextContentOperations) => {
   })
 
   const router = useRouter()
+  const params = useParams()
   const { toast } = useToast()
   const [showDeleteAlert, setShowDeleteAlert] = React.useState<boolean>(false)
   const [isDeleteLoading, setIsDeleteLoading] = React.useState<boolean>(false)
@@ -83,9 +85,39 @@ const TextContentOperations = ({ data }: ITextContentOperations) => {
     return true
   }
 
-  async function editChatbot(formData: any) {
-    console.log("edit action")
+  async function editChatbot(formData: chatbotTextValues) {
+    setIsEditLoading(true)
+    try {
+      const response = await axiosInstance.put(
+        `/chatbot-data/text/${data.id}`,
+        { ...formData, chatBotId: params.chatbotId }
+      )
+      console.log(response.data.data)
+      mutate("/chatbot-data/text", (oldData) =>
+        oldData.map((chatbotData: chatbotTextValues) => {
+          if (chatbotData.id === data.id) {
+            return response.data.data
+          } else {
+            return chatbotData
+          }
+        })
+      )
+      setIsEditLoading(false)
+      setShowEditAlert(false)
+    } catch (error) {
+      setIsEditLoading(false)
+      const serverError = error as ApiError
+    }
   }
+
+  React.useEffect(() => {
+    reset({
+      text: data.text,
+      title: data.title,
+      chatBotId: data.chatBotId,
+      id: data.id,
+    })
+  }, [data, reset])
 
   return (
     <div className="absolute right-1 top-1">
@@ -135,24 +167,24 @@ const TextContentOperations = ({ data }: ITextContentOperations) => {
             <div className="grid gap-6">
               <div className="space-y-4 py-2 pb-4">
                 <div className="space-y-2">
-                  <Label htmlFor="name">Title</Label>
+                  <Label htmlFor="title">Title</Label>
                   <Input
                     id="title"
-                    placeholder="Chatbot AI"
+                    placeholder="title"
                     disabled={isEditLoading}
                     {...register("title")}
                   />
                   {errors.title?.message && (
-                    <Label htmlFor="name" variant="error">
+                    <Label htmlFor="title" variant="error">
                       {errors.title.message.toString()}
                     </Label>
                   )}
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="website">text</Label>
+                  <Label htmlFor="text">text</Label>
                   <Input
                     id="text"
-                    placeholder="https://chatbot-ai.com"
+                    placeholder="data..."
                     disabled={isEditLoading}
                     {...register("text")}
                   />
