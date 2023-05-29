@@ -22,6 +22,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
+import { toast } from "@/components/ui/use-toast"
 
 type TextContentModalProps = {
   onClose: () => void
@@ -43,10 +44,16 @@ const AddTextContentModal = ({ onClose }: TextContentModalProps) => {
         ...textData,
         chatBotId: param.chatbotId,
       })
-      console.log(response)
-      console.log("form submitted", textData)
-      setIsLoading(false)
-      mutate("/chatbot-data/text")
+      if (response.data.success) {
+        console.log("form submitted", textData)
+        setIsLoading(false)
+        mutate("/chatbot-data/text")
+        onClose()
+      } else {
+        toast({
+          title: "Unable to add Text",
+        })
+      }
     } catch (error) {
       const serverError = error as ApiError
       setIsLoading(false)
@@ -57,16 +64,16 @@ const AddTextContentModal = ({ onClose }: TextContentModalProps) => {
     <div>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Add Chatbot</DialogTitle>
+          <DialogTitle>Add Text</DialogTitle>
           <DialogDescription>
-            Add a website name and URL to create chatbot.
+            Please add some description related to the title
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="grid w-full gap-5">
             <Input
               type="text"
-              placeholder="chatbot name"
+              placeholder="title"
               {...register("title")}
               disabled={isLoading}
             />
@@ -89,7 +96,7 @@ const AddTextContentModal = ({ onClose }: TextContentModalProps) => {
               </Button>
               <Button type="submit" className="whitespace-nowrap">
                 {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                Retrain chatbot
+                Add Text
               </Button>
             </DialogFooter>
           </div>

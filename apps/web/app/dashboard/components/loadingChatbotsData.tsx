@@ -1,13 +1,8 @@
 import React from "react"
-import Link from "next/link"
 
 import { IChatbot } from "@/types/chatbot"
 import { Card } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
-
-interface IChatbotCard {
-  chatbot: IChatbot
-}
 
 const LoadingChatbotsData = () => {
   return (

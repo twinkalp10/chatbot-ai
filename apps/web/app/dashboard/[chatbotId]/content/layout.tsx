@@ -14,7 +14,7 @@ const ContentLayout = ({ children }: { children: ReactNode }) => {
   const param = useParams()
   return (
     <>
-      <div className="flex items-start ">
+      <div className="flex items-start gap-6">
         <div className="px-4 py-2">
           <div className="space-y-1">
             {/* <Link href={`/dashboard/${param.chatbotId}/content/files`}>
@@ -61,8 +61,8 @@ const ContentLayout = ({ children }: { children: ReactNode }) => {
             </Link> */}
           </div>
         </div>
-        <Separator orientation="vertical" className="h-[calc(100vh-66px)]" />
-        <div className="grow p-6">{children}</div>
+        <Separator orientation="vertical" className="h-[calc(100vh)]" />
+        <div>{children}</div>
       </div>
     </>
   )
