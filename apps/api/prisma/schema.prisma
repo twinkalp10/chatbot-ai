@@ -60,7 +60,7 @@ model ChatBotTextData {
   chatBot ChatBot @relation(fields: [chatBotId], references: [id])
   user    User    @relation(fields: [userId], references: [id])
 
-  @@unique([userId, chatBotId])
+  @@unique([userId, chatBotId, id])
 }
 
 enum CHAT_BUBBLE_ALIGNMENT {
