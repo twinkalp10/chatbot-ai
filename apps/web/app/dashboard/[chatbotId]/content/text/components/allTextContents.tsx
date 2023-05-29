@@ -11,10 +11,13 @@ import TextContentOperations from "./textContentOperations"
 export interface IAllTextContents {
   data: chatbotTextValues[] | undefined
 }
-
+const dummyArray = Array.from({ length: 12 })
 const AllTextContents = () => {
-  const { data, error, isLoading } = useSWR("/chatbot-data/text", fetcher)
-  const dummyArray = Array.from({ length: 12 })
+  const { data, error, isLoading } = useSWR<chatbotTextValues[]>(
+    "/chatbot-data/text",
+    fetcher
+  )
+
   if (error) {
     return <div>Error fetching data...</div>
   }
@@ -35,9 +38,18 @@ const AllTextContents = () => {
 export default AllTextContents
 
 export const TextList = ({ data }: IAllTextContents) => {
+  if (!data) {
+    return (
+      <div className="flex flex-col gap-3">
+        {dummyArray.map(() => (
+          <LoadingChatbotsData />
+        ))}
+      </div>
+    )
+  }
   return (
     <div className="flex flex-col gap-3">
-      {data?.map((item, index) => (
+      {data.map((item, index) => (
         <div key={index}>
           <Card className="hover:border-white cursor-pointer relative">
             <TextContentOperations data={item} />

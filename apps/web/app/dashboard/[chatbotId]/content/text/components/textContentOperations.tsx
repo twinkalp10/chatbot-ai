@@ -65,7 +65,6 @@ const TextContentOperations = ({ data }: ITextContentOperations) => {
     chatBotId: string
     id: string
   }) {
-    console.log(chatBotId, id)
     setIsDeleteLoading(true)
     try {
       const response = await axiosInstance.delete(`/chatbot-data/text/${id}`, {
@@ -73,8 +72,9 @@ const TextContentOperations = ({ data }: ITextContentOperations) => {
           chatBotId,
         },
       })
-      mutate("/chatbot-data/text/")
-      console.log(response)
+      mutate("/chatbot-data/text", (oldData) =>
+        oldData.filter((textData: chatbotTextValues) => textData.id !== id)
+      )
       setIsDeleteLoading(false)
     } catch (error) {
       setIsDeleteLoading(false)
@@ -86,8 +86,6 @@ const TextContentOperations = ({ data }: ITextContentOperations) => {
   async function editChatbot(formData: any) {
     console.log("edit action")
   }
-
-  console.log({ data })
 
   return (
     <div className="absolute right-1 top-1">
