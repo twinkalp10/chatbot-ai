@@ -1,5 +1,4 @@
 import db from "../../configs/db.config"
-import { chatBotDefaultSettings } from "../../default/chatbotSettings.default"
 import { Req, Res } from "../../type"
 
 export const getAllTextData = async (req: Req, res: Res) => {
@@ -45,14 +44,10 @@ export const updateTextData = async (req: Req, res: Res) => {
  if (userId) {
   const chatBotTextData = await db.chatBotTextData.update({
    where: {
-    id_chatBotId: {
+    userId_chatBotId: {
      chatBotId,
-     id
+     userId
     },
-    id_userId: {
-     userId,
-     id
-    }
    },
    data: {
     title,
@@ -74,14 +69,10 @@ export const deleteChatbot = async (req: Req, res: Res) => {
  if (userId) {
   const chatBot = await db.chatBotTextData.delete({
    where: {
-    id_userId: {
+    userId_chatBotId: {
      userId,
-     id
+     chatBotId
     },
-    id_chatBotId: {
-     chatBotId,
-     id
-    }
    }
   })
   res.send({ data: chatBot, success: true })
