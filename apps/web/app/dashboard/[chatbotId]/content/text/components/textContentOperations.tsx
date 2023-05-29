@@ -73,6 +73,7 @@ const TextContentOperations = ({ data }: ITextContentOperations) => {
           chatBotId,
         },
       })
+      mutate("/chatbot-data/text/")
       console.log(response)
       setIsDeleteLoading(false)
     } catch (error) {

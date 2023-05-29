@@ -38,11 +38,11 @@ export const TextList = ({ data }: IAllTextContents) => {
   return (
     <div className="flex flex-col gap-3">
       {data?.map((item, index) => (
-        <div>
+        <div key={index}>
           <Card className="hover:border-white cursor-pointer relative">
             <TextContentOperations data={item} />
             <CardHeader className="flex flex-col items-start justify-between space-y-0">
-              <div key={index}>
+              <div>
                 <CardTitle className="text-2xl font-bold ">
                   {item.title}{" "}
                 </CardTitle>
