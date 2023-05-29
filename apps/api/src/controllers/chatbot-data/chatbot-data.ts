@@ -48,6 +48,7 @@ export const updateTextData = async (req: Req, res: Res) => {
      chatBotId,
      userId
     },
+    id
    },
    data: {
     title,
