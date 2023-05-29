@@ -14,7 +14,7 @@ const DashboardLayout = ({ children }: { children: ReactNode }) => {
   const params = useParams()
   return (
     <div>
-      <div className="bg-background sticky left-0 top-0 flex w-full flex-col">
+      <div className="bg-background sticky left-0 top-0 flex w-full flex-col z-50">
         <div className="border-b">
           <div className="flex items-stretch p-4">
             <div className="flex w-full items-center justify-between">

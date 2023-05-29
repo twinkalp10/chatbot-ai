@@ -41,16 +41,22 @@ export function AddWebsiteModal({ onClose }: WebsiteModalProps) {
   async function onSubmit(value: ChatbotValues) {
     setIsLoading(true)
     try {
-      const { data } = await axiosInstance.post<{ data: IChatbot }>(
-        "/chatbot/",
-        value
-      )
-      toast({
-        title: "New Chatbot added successfully!",
-      })
-      mutate("/chatbot", (oldData) => [...oldData, data.data])
-      onClose()
-      reset()
+      const { data } = await axiosInstance.post<{
+        data: IChatbot
+        success: boolean
+      }>("/chatbot/", value)
+      if (data.success) {
+        toast({
+          title: "New Chatbot added successfully!",
+        })
+        mutate("/chatbot", (oldData) => [...oldData, data.data])
+        onClose()
+        reset()
+      } else {
+        toast({
+          title: "Unable to add Chatbot",
+        })
+      }
       setIsLoading(false)
     } catch (error) {
       const serverError = error as ApiError
