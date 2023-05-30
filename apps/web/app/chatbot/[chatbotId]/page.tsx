@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input"
 
 const Page = () => {
   return (
-    <div className="flex h-screen w-full flex-col justify-between overflow-auto  p-2">
+    <div className="flex h-screen w-full flex-col justify-between overflow-auto p-3">
       <div className="flex flex-col space-y-5">
         <div className="self-end">
           <RefreshCcw />

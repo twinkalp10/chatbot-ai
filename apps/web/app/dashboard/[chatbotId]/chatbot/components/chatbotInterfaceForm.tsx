@@ -5,6 +5,7 @@ import { useParams } from "next/navigation"
 import { chatbotInterfaceSchema } from "@/schema/chatbotInterface"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { Loader2 } from "lucide-react"
+import { HexColorPicker } from "react-colorful"
 import { useForm } from "react-hook-form"
 import useSWR, { mutate } from "swr"
 
@@ -28,15 +29,18 @@ import { Textarea } from "@/components/ui/textarea"
 import ChatbotUI from "./chatbotUI"
 
 const ChatbotInterfaceForm = ({ data }: any) => {
-  const { register, handleSubmit, formState, watch } = useForm<FormValues>({
-    defaultValues: data?.[0] || {},
-    resolver: yupResolver(chatbotInterfaceSchema),
-  })
+  const { register, handleSubmit, formState, watch, setValue } =
+    useForm<FormValues>({
+      defaultValues: data?.[0] || {},
+      resolver: yupResolver(chatbotInterfaceSchema),
+    })
   const [isLoading, setIsLoading] = React.useState(false)
 
   const { errors } = formState
 
   const params = useParams() as { chatbotId: string }
+
+  const watchAllFields = watch()
 
   const onsubmit = async (formData: FormValues) => {
     setIsLoading(true)
@@ -45,6 +49,7 @@ const ChatbotInterfaceForm = ({ data }: any) => {
         `/chatbot-settings/interface/${params.chatbotId}`,
         formData
       )
+      console.log(response)
       mutate("/chatbot-settings/interface")
       setIsLoading(false)
       console.log("data submitted", formData)
@@ -53,8 +58,6 @@ const ChatbotInterfaceForm = ({ data }: any) => {
       const serverError = error as ApiError
     }
   }
-
-  const watchAllFields = watch()
 
   return (
     <div className="grid w-full grid-cols-2">
@@ -94,67 +97,85 @@ const ChatbotInterfaceForm = ({ data }: any) => {
               </Label>
             )}
           </div>
-          <div>
-            <Label htmlFor="chatBackgroundColor">
-              Select chatbot background color
-            </Label>
-            <Input
-              type="color"
-              id="chatBackgroundColor"
-              disabled={isLoading}
-              {...register("chatBackgroundColor")}
-            />
 
-            <p>Chatbot background color: {} </p>
+          <div>
+            <div className="flex flex-col gap-3">
+              <div>
+                <label htmlFor="chatBackgroundColor">Color Picker:</label>
+                <HexColorPicker
+                  color={watch("chatBackgroundColor", "")}
+                  onChange={(newColor) =>
+                    setValue("chatBackgroundColor", newColor)
+                  }
+                />
+              </div>
+
+              <div className="flex flex-col gap-1">
+                <label htmlFor="color">Select Chatbot message Color:</label>
+                <Input
+                  type="text"
+                  id="color"
+                  disabled={isLoading}
+                  {...register("chatBackgroundColor")}
+                />
+              </div>
+            </div>
             {errors.chatBackgroundColor?.message && (
               <Label variant="error">
                 {errors.chatBackgroundColor.message.toString()}
               </Label>
             )}
           </div>
-          <div>
-            <Label htmlFor="userColorMessage">Select user message color</Label>
-            <Input
-              type="color"
-              id="userColorMessage"
-              disabled={isLoading}
-              {...register("userColorMessage")}
-            />
 
-            <p>User message color: {} </p>
-            {errors.userColorMessage?.message && (
-              <Label variant="error">
-                {errors.userColorMessage.message.toString()}
-              </Label>
-            )}
-          </div>
           <div>
-            <Label htmlFor="chatBotColorMessage">
-              Select chatbot message color
-            </Label>
-            <Input
-              type="color"
-              id="chatBotColorMessage"
-              disabled={isLoading}
-              {...register("chatBotColorMessage")}
-            />
+            <div className="flex flex-col gap-3">
+              <div>
+                <label htmlFor="colorPicker">Color Picker:</label>
+                <HexColorPicker
+                  color={watch("chatBotColorMessage", "")}
+                  onChange={(newColor) =>
+                    setValue("chatBotColorMessage", newColor)
+                  }
+                />
+              </div>
 
-            <p>Chatbot message color: {} </p>
+              <div className="flex flex-col gap-1">
+                <label htmlFor="color">Select Chatbot message Color:</label>
+                <Input
+                  type="text"
+                  id="color"
+                  disabled={isLoading}
+                  {...register("chatBotColorMessage")}
+                />
+              </div>
+            </div>
             {errors.chatBotColorMessage?.message && (
               <Label variant="error">
                 {errors.chatBotColorMessage.message.toString()}
               </Label>
             )}
           </div>
+
           <div>
-            <Label htmlFor="chatBubbleColor">Select chatbot bubble color</Label>
-            <Input
-              type="color"
-              id="chatBubbleColor"
-              disabled={isLoading}
-              {...register("chatBubbleColor")}
-            />
-            <p>Chatbot bubble color: {} </p>
+            <div className="flex flex-col gap-3">
+              <div>
+                <label htmlFor="chatBubbleColor">Color Picker:</label>
+                <HexColorPicker
+                  color={watch("chatBubbleColor", "")}
+                  onChange={(newColor) => setValue("chatBubbleColor", newColor)}
+                />
+              </div>
+
+              <div className="flex flex-col gap-1">
+                <label htmlFor="color">Select Chatbot bubble Color:</label>
+                <Input
+                  type="text"
+                  id="color"
+                  disabled={isLoading}
+                  {...register("chatBubbleColor")}
+                />
+              </div>
+            </div>
             {errors.chatBubbleColor?.message && (
               <Label variant="error">
                 {errors.chatBubbleColor.message.toString()}
