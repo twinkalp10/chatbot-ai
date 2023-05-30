@@ -111,7 +111,7 @@ const ChatbotInterfaceForm = ({ data }: any) => {
               </div>
 
               <div className="flex flex-col gap-1">
-                <label htmlFor="color">Select Chatbot message Color:</label>
+                <label htmlFor="color">Select Chatbot background Color:</label>
                 <Input
                   type="text"
                   id="color"
@@ -152,6 +152,35 @@ const ChatbotInterfaceForm = ({ data }: any) => {
             {errors.chatBotColorMessage?.message && (
               <Label variant="error">
                 {errors.chatBotColorMessage.message.toString()}
+              </Label>
+            )}
+          </div>
+
+          <div>
+            <div className="flex flex-col gap-3">
+              <div>
+                <label htmlFor="colorPicker">Color Picker:</label>
+                <HexColorPicker
+                  color={watch("userColorMessage", "")}
+                  onChange={(newColor) =>
+                    setValue("userColorMessage", newColor)
+                  }
+                />
+              </div>
+
+              <div className="flex flex-col gap-1">
+                <label htmlFor="color">Select User message Color:</label>
+                <Input
+                  type="text"
+                  id="color"
+                  disabled={isLoading}
+                  {...register("userColorMessage")}
+                />
+              </div>
+            </div>
+            {errors.userColorMessage?.message && (
+              <Label variant="error">
+                {errors.userColorMessage.message.toString()}
               </Label>
             )}
           </div>
