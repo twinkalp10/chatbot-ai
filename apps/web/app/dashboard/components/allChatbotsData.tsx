@@ -43,7 +43,7 @@ const ChatbotsData = () => {
     )
   return (
     <>
-      <div className="flex w-full items-center space-x-2 ">
+      <div className="flex w-full items-center space-x-2">
         <Input
           type="search"
           placeholder="Search chatbot..."
